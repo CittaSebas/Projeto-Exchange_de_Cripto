@@ -26,13 +26,12 @@ public class CadastroController {
     public void cadastrarusuario(){
         String cpf = view.getTxtcpf().getText();
         String senha = view.getTxtsenha().getText();
+        String nome = view.getTxtnome().getText();
         float ripple = 0f;
         float ethereum= 0f;
         float bitcoin = 0f;
         float reais = 0f;
-        Usuario usuario = new Usuario(cpf,senha,ripple,ethereum,bitcoin,reais);
-        System.out.println(senha);
-        System.out.println(cpf);
+        Usuario usuario = new Usuario(cpf,senha,nome,ripple,ethereum,bitcoin,reais);
         Conexao conexao = new Conexao();
         try{
             Connection conn = conexao.getConnection();

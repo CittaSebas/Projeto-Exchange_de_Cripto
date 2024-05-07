@@ -4,63 +4,40 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author citta
  */
-public class Usuario {
-    
+public class Extrato {
     
     private String cpf, senha,cpflogado, nome;
-    private float ripple, ethereum, bitcoin, reais, ValorDeposito;
-    
-    
+    private float ripple, ethereum, bitcoin, reais, transacao, taxa, cotacao;
+    private java.sql.Timestamp data;
 
-    public Usuario() {
-    }
-
-    public Usuario( String cpf, String senha,String nome, float ripple, float ethereum,
-            float bitcoin, float reais) {
+    public Extrato(String cpf,String nome, String cpflogado, float ripple, float ethereum, 
+            float bitcoin, float reais, float transacao, float taxa, float cotacao, Timestamp data) {
         this.cpf = cpf;
-        this.senha = senha;
         this.nome = nome;
+        this.cpflogado = cpflogado;
         this.ripple = ripple;
         this.ethereum = ethereum;
         this.bitcoin = bitcoin;
         this.reais = reais;
+        this.transacao = transacao;
+        this.taxa = taxa;
+        this.cotacao = cotacao;
+        this.data = data;
     }
 
-    public Usuario(String cpflogado) {
+    public Extrato(String cpflogado) {
         this.cpflogado = cpflogado;
     }
     
-
-    public Usuario(String cpf, String senha) {
-        this.cpf = cpf;
-        this.senha = senha;
-       
-    }
-    public Usuario(float ValorDeposito, String cpflogado){
-        this.ValorDeposito = ValorDeposito;
-        this.cpflogado = cpflogado;
-    }
-
-    public String getCpflogado() {
-        return cpflogado;
-    }
-
-    public void setCpflogado(String cpflogado) {
-        this.cpflogado = cpflogado;
-    }
-
-    public float getValorDeposito() {
-        return ValorDeposito;
-    }
-
-    public void setValorDeposito(float ValorDeposito) {
-        this.ValorDeposito = ValorDeposito;
-    }
-
+    
+    
+    
     public String getCpf() {
         return cpf;
     }
@@ -69,13 +46,20 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-
     public String getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getCpflogado() {
+        return cpflogado;
+    }
+
+    public void setCpflogado(String cpflogado) {
+        this.cpflogado = cpflogado;
     }
 
     public float getRipple() {
@@ -110,15 +94,39 @@ public class Usuario {
         this.reais = reais;
     }
 
-    public String getNome() {
-        return nome;
+    public float getTransacao() {
+        return transacao;
+    }
+
+    public void setTransacao(float transacao) {
+        this.transacao = transacao;
+    }
+
+    public float getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(float taxa) {
+        this.taxa = taxa;
+    }
+
+    public float getCotacao() {
+        return cotacao;
+    }
+
+    public void setCotacao(float cotacao) {
+        this.cotacao = cotacao;
+    }
+
+    public Timestamp getData() {
+        return data;
+    }
+
+    public void setData(Timestamp data) {
+        this.data = data;
     }
     
 
-    @Override
-    public String toString() {
-        return "Usuario{"  + ", senha=" + senha + '}';
-                
-    }
+    
     
 }

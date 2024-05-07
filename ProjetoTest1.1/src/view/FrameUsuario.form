@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="btnconsultarsaldo" max="32767" attributes="0"/>
                   <Component id="btncomprarcripto" max="32767" attributes="0"/>
-                  <Component id="btnvendercripto" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnvendercripto" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -70,8 +70,8 @@
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnvendercripto" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnatualizarcotacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnvendercripto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="47" max="32767" attributes="0"/>
               <Component id="btnsair" min="-2" max="-2" attributes="0"/>
@@ -109,13 +109,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btncomprarcripto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Comprar Cripto"/>
+        <Property name="text" type="java.lang.String" value="Comprar  Cripto"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnvendercripto">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Vender Cripto"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btncomprarcriptoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnatualizarcotacao">
       <Properties>
@@ -125,6 +123,11 @@
     <Component class="javax.swing.JButton" name="btnsair">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnvendercripto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vender Cripto"/>
       </Properties>
     </Component>
   </SubComponents>

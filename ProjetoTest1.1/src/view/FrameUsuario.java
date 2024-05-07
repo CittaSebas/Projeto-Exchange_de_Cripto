@@ -36,9 +36,9 @@ public class FrameUsuario extends javax.swing.JFrame {
         btndepositar = new javax.swing.JButton();
         btnsacar = new javax.swing.JButton();
         btncomprarcripto = new javax.swing.JButton();
-        btnvendercripto = new javax.swing.JButton();
         btnatualizarcotacao = new javax.swing.JButton();
         btnsair = new javax.swing.JButton();
+        btnvendercripto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,13 +60,18 @@ public class FrameUsuario extends javax.swing.JFrame {
 
         btnsacar.setText("Sacar");
 
-        btncomprarcripto.setText("Comprar Cripto");
-
-        btnvendercripto.setText("Vender Cripto");
+        btncomprarcripto.setText("Comprar  Cripto");
+        btncomprarcripto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncomprarcriptoActionPerformed(evt);
+            }
+        });
 
         btnatualizarcotacao.setText("Atualizar cotação");
 
         btnsair.setText("Sair");
+
+        btnvendercripto.setText("Vender Cripto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,8 +114,8 @@ public class FrameUsuario extends javax.swing.JFrame {
                     .addComponent(btncomprarcripto))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnvendercripto)
-                    .addComponent(btnatualizarcotacao))
+                    .addComponent(btnatualizarcotacao)
+                    .addComponent(btnvendercripto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnsair)
                 .addGap(39, 39, 39))
@@ -121,7 +126,9 @@ public class FrameUsuario extends javax.swing.JFrame {
 
     private void btnconsultarsaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultarsaldoActionPerformed
         // TODO add your handling code here:
-        
+        FrameSaldo fs = new FrameSaldo(cpflogado);
+        fs.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnconsultarsaldoActionPerformed
 
     private void btndepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndepositarActionPerformed
@@ -130,6 +137,13 @@ public class FrameUsuario extends javax.swing.JFrame {
         fd.setVisible(true);
         dispose();
     }//GEN-LAST:event_btndepositarActionPerformed
+
+    private void btncomprarcriptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncomprarcriptoActionPerformed
+        // TODO add your handling code here:
+        FrameComprarCripto fcc = new FrameComprarCripto(cpflogado);
+        fcc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btncomprarcriptoActionPerformed
 
     /**
      * @param args the command line arguments
