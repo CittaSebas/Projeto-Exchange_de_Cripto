@@ -7,9 +7,11 @@ package controller;
 import DAO.Conexao;
 import DAO.UsuarioDAO;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.Extrato;
+import model.Usuario;
 import view.FrameSaldo;
 
 /**
@@ -19,13 +21,29 @@ import view.FrameSaldo;
 public class SaldoController {
     
     private FrameSaldo view;
-    private String cpflogado;
+    private String cpflogado, saldo;
     
         public SaldoController(FrameSaldo view, String cpflogado) {
         this.view = view;
         this.cpflogado = cpflogado;
     }
-        public String imprimirextrato(){
+        
+   public ResultSet consultarsaldo() {
+        Conexao conexao = new Conexao();
+        ResultSet resultSet = null; 
+        
+        try {
+            Connection conn = conexao.getConnection();
+            UsuarioDAO dao = new UsuarioDAO(conn);
+            resultSet = dao.consultarsaldo(new Usuario(cpflogado)); 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(view, "Erro de conexão");
+            e.printStackTrace();
+        }
+        
+        return resultSet;
+    }    
+    public String imprimirextrato(){
         
         Extrato extrato = new Extrato(cpflogado);
         

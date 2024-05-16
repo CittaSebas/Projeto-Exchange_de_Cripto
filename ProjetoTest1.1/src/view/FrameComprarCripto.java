@@ -4,7 +4,11 @@
  */
 package view;
 
+import controller.ComprarCriptoController;
 import javax.swing.JTextField;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 /**
  *
@@ -13,6 +17,11 @@ import javax.swing.JTextField;
 public class FrameComprarCripto extends javax.swing.JFrame {
     private String cpflogado;
 
+    public JTextField getTxtsaldo() {
+        return txtsaldo;
+    }
+
+    
     public void setTxtcotbtc(JTextField txtcotbtc) {
         this.txtcotbtc = txtcotbtc;
     }
@@ -28,6 +37,43 @@ public class FrameComprarCripto extends javax.swing.JFrame {
     public void setTxtsaldo(JTextField txtsaldo) {
         this.txtsaldo = txtsaldo;
     }
+
+    public JTextField getTxtbtc() {
+        return txtbtc;
+    }
+
+    public JTextField getTxtcotbtc() {
+        return txtcotbtc;
+    }
+
+    public JTextField getTxtcoteth() {
+        return txtcoteth;
+    }
+
+    public void setTotalbtc(JTextField totalbtc) {
+        this.totalbtc = totalbtc;
+    }
+
+    public void setTotaleth(JTextField totaleth) {
+        this.totaleth = totaleth;
+    }
+
+    public void setTotalxrp(JTextField totalxrp) {
+        this.totalxrp = totalxrp;
+    }
+
+    public JTextField getTxtcomprabtc() {
+        return txtcomprabtc;
+    }
+
+    public JTextField getTxtcompraxrp() {
+        return txtcompraxrp;
+    }
+
+    public JTextField getTxtcomrpaeth() {
+        return txtcomrpaeth;
+    }
+    
     
 
     /**
@@ -36,11 +82,54 @@ public class FrameComprarCripto extends javax.swing.JFrame {
     public FrameComprarCripto(String cpflogado) {
         initComponents();
         this.cpflogado = cpflogado;
+        controller = new ComprarCriptoController(this,cpflogado);
         txtcotbtc.setEditable(false);
         txtcoteth.setEditable(false);
         txtcotbtc.setEditable(false);
         txtsaldo.setEditable(false);
         txtcotripple.setEditable(false);
+        txtxrp.setEditable(false);
+        txteth.setEditable(false);
+        txtbtc.setEditable(false);
+       
+        //Puxando valores do ResultSet para variaveis locais 
+        ResultSet res = controller.consultarsc();
+    try {
+        if (res.next()) {
+            
+            float saldo = res.getFloat("reais");
+            txtsaldo.setText(Float.toString(saldo));
+            
+            float saldobtc = res.getFloat("bitcoin");
+            txtbtc.setText(Float.toString(saldobtc));
+            
+            float saldoxrp = res.getFloat("ripple");
+            txtxrp.setText(Float.toString(saldoxrp));
+            
+            float saldoeth = res.getFloat("ethereum");
+            txteth.setText(Float.toString(saldoeth));
+            
+        } else {
+            // 
+            JOptionPane.showMessageDialog(this, "Erro ao buscar dados");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro de conexão");
+        e.printStackTrace();
+    }
+    float cotbtc = controller.cotacaobtc();
+    float coteth = controller.cotacaoeth();
+    float cotxrp = controller.cotacaoxrp();
+    txtcotbtc.setText(Float.toString(cotbtc));
+    txtcoteth.setText(Float.toString(coteth));
+    txtcotripple.setText(Float.toString(cotxrp));
+    
+        
+       
+        
+        
+    
+        
     }
 
     /**
@@ -52,27 +141,63 @@ public class FrameComprarCripto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtsaldo = new javax.swing.JTextField();
         txtcotbtc = new javax.swing.JTextField();
         txtcoteth = new javax.swing.JTextField();
         txtcotripple = new javax.swing.JTextField();
+        btncbtc = new javax.swing.JButton();
+        btnceth = new javax.swing.JButton();
+        btncxrp = new javax.swing.JButton();
+        txtbtc = new javax.swing.JTextField();
+        txteth = new javax.swing.JTextField();
+        txtxrp = new javax.swing.JTextField();
+        totalbtc = new javax.swing.JTextField();
+        totaleth = new javax.swing.JTextField();
+        totalxrp = new javax.swing.JTextField();
+        txtcomprabtc = new javax.swing.JTextField();
+        txtcomrpaeth = new javax.swing.JTextField();
+        txtcompraxrp = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menumenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Bitcoin:");
 
         jLabel2.setText("Veja as Criptomoedas e suas cotações");
 
         jLabel3.setText("Saldo disponível: ");
 
-        jLabel4.setText("Ethereum");
+        btncbtc.setText("Bitcoin");
+        btncbtc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncbtcActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Ripple");
+        btnceth.setText("Ethereum");
+
+        btncxrp.setText("Ripple");
+
+        txtxrp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtxrpActionPerformed(evt);
+            }
+        });
+
+        menumenu.setText("Menu");
+        menumenu.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                menumenuMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(menumenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,55 +206,122 @@ public class FrameComprarCripto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(264, 264, 264)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtcoteth, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtcotbtc, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtsaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(btncxrp, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtxrp))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(btnceth)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txteth))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(btncbtc, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtbtc, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtcotripple, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(119, 119, 119)
-                                .addComponent(txtcotripple, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                                .addGap(54, 54, 54)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(totaleth, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(totalxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(101, 101, 101)
-                                .addComponent(txtcoteth, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtcomrpaeth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtcomprabtc)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(60, 60, 60)
-                                .addComponent(txtsaldo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(112, 112, 112)
-                                .addComponent(txtcotbtc, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtcompraxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
-                .addGap(130, 130, 130))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(totalbtc, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(49, 49, 49))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addGap(14, 14, 14)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtsaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtcotbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtcoteth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtcotripple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcotbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btncbtc))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnceth)
+                            .addComponent(txteth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcoteth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btncxrp)
+                            .addComponent(txtcotripple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcompraxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtcomprabtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(txtcomrpaeth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totaleth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)))
+                .addComponent(totalxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btncbtcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncbtcActionPerformed
+        // TODO add your handling code here:
+        controller.comprarbtc();
+        dispose();
+        
+    }//GEN-LAST:event_btncbtcActionPerformed
+
+    private void txtxrpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtxrpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtxrpActionPerformed
+
+    private void menumenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_menumenuMenuSelected
+        // TODO add your handling code here:
+        FrameUsuario fu = new FrameUsuario(cpflogado);
+        fu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menumenuMenuSelected
 
     /**
      * @param args the command line arguments
@@ -165,16 +357,27 @@ public class FrameComprarCripto extends javax.swing.JFrame {
             }
         });
     }
-
+private ComprarCriptoController controller;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btncbtc;
+    private javax.swing.JButton btnceth;
+    private javax.swing.JButton btncxrp;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menumenu;
+    private javax.swing.JTextField totalbtc;
+    private javax.swing.JTextField totaleth;
+    private javax.swing.JTextField totalxrp;
+    private javax.swing.JTextField txtbtc;
+    private javax.swing.JTextField txtcomprabtc;
+    private javax.swing.JTextField txtcompraxrp;
+    private javax.swing.JTextField txtcomrpaeth;
     private javax.swing.JTextField txtcotbtc;
     private javax.swing.JTextField txtcoteth;
     private javax.swing.JTextField txtcotripple;
+    private javax.swing.JTextField txteth;
     private javax.swing.JTextField txtsaldo;
+    private javax.swing.JTextField txtxrp;
     // End of variables declaration//GEN-END:variables
 }

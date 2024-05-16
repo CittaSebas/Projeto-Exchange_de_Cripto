@@ -5,6 +5,9 @@
 package view;
 
 import controller.SaldoController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
@@ -36,7 +39,40 @@ public class FrameSaldo extends javax.swing.JFrame {
         this.cpflogado = cpflogado;
         controller = new SaldoController(this, cpflogado);
         txtareasaldo.setEditable(false);
-        
+        //Puxando valores do ResultSet para variaveis locais 
+        ResultSet res = controller.consultarsaldo();
+    try {
+        if (res.next()) {
+            
+            String nome = res.getString("nome");
+            
+            String cpf = res.getString("cpf");
+            
+            String saldo = res.getString("reais");
+            
+            String saldobtc = res.getString("bitcoin");
+            
+            String saldoeth = res.getString("bitcoin");
+            
+            String saldoxrp = res.getString("bitcoin");
+            
+            StringBuilder saldoString = new StringBuilder();
+            
+            saldoString.append("Nome: " +nome + "\n" ).append("CPF: " + cpf + "\n \n")
+                    .append("Reais: "+saldo + " \n").append("Bitcoin: "+ saldobtc + "\n")
+                    .append("Ethereum: "+saldoxrp+"\n").append("Ripple: "+saldoxrp + "\n");
+            
+            txtareasaldo.append(saldoString.toString());
+            
+            
+        } else {
+            // 
+            JOptionPane.showMessageDialog(this, "Erro ao buscar dados");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro de conexão");
+        e.printStackTrace();
+    }
     }
 
     /**

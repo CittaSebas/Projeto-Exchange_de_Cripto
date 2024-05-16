@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
 import java.security.Timestamp;
@@ -25,19 +21,22 @@ public class UsuarioDAO {
     public UsuarioDAO(Connection conn) {
         this.conn = conn;
     }
-    public String formatarTimestamp(Timestamp timestamp) {
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    return formato.format(timestamp);
-}
     
     public ResultSet consultar(Usuario usuario) throws SQLException{
         
-        String sql = "select * from usuarios where cpf = ? and senha = ?";
+        String sql = "select * from usuarios where cpf = ? ";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1,usuario.getCpf());
-        statement.setString(2,usuario.getSenha());
         statement.execute();
         ResultSet resultado = statement.getResultSet();
+        return resultado;
+    }
+    public ResultSet consultarsaldo(Usuario usuario) throws SQLException{
+        
+        String sql = "select * from usuarios where cpf = ? ";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1,usuario.getCpflogado());
+        ResultSet resultado = statement.executeQuery();
         return resultado;
     }
     
@@ -166,10 +165,212 @@ public class UsuarioDAO {
                 append(timestamp).append(" ").append(transacao).append(" ")
                 .append("CT: ").append(cotacao).append(" ")
                 .append("TX: ").append(taxa+ " ").append("REAL: ").append(reais+ " ")
-                .append("BTC: ").append(bitcoin + " ").append("BTC: ").append(bitcoin+" ")
+                .append("BTC: ").append(bitcoin + " ")
                 .append("ETH: ").append(ethereum+" ").append("XRP: ").append(ripple+" ").append("\n");
     }
-        System.out.println(extratoString.toString());
         return extratoString.toString();
     }
+     
+     public void comprabtc(Usuario usuario){
+         
+        float saldo = usuario.getReais();
+        float saldobtc = usuario.getSaldocripto();
+       
+        float comprabtc = usuario.getCompra();
+        System.out.println(comprabtc);
+        float cotbtc = usuario.getCotacao();
+        double totalCompra = (float) (comprabtc * cotbtc) * 1.02;
+        double taxaTransacao = totalCompra - (comprabtc * cotbtc);
+        java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+        data.setNanos(0);
+        System.out.println(saldobtc);
+        
+         
+        if(saldo-totalCompra <0){
+            System.out.println("Impossible");
+        }else{ 
+            double novosaldobrl =  (saldo - totalCompra);
+            double novosaldobtc = saldobtc + comprabtc;
+            System.out.println(novosaldobtc);
+            
+            try{
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, bitcoin = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setDouble(2, novosaldobtc);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+                
+                
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setFloat(3, usuario.getRipple());
+                extratostatement.setDouble(4, novosaldobtc);
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setFloat(6, usuario.getEthereum());
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, cotbtc);
+                extratostatement.setString(9, "+"+ comprabtc + " BTC");
+                extratostatement.executeUpdate();
+                extratostatement.close(); 
+                atualizarSaldoStatement.close();
+        }catch(SQLException e){System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+            e.printStackTrace();
+            
+        }} 
+         
+         
+     }
+     
+     public void compraeth(Usuario usuario){
+         
+         float saldo = usuario.getReais();
+         float saldoeth = usuario.getEthereum();
+         float compraeth = usuario.getCompra();
+         float coteth = usuario.getCotacao();
+         double conta = (float) (compraeth*coteth)*1.02;
+         double conta2 = saldo - conta;
+         System.out.println(usuario.getCpflogado());
+         System.out.println(conta2);
+         
+        if(saldo-conta <0){
+            System.out.println("Impossible");
+        }else{ 
+            double novosaldobrl =  (saldo - conta);
+            double novosaldoeth = saldoeth + compraeth;
+            try{
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, ethereum = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setDouble(2, novosaldoeth);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+                atualizarSaldoStatement.close();
+        }catch(SQLException e){
+            
+        }}
+}
+public void compraxrp(Usuario usuario){
+         
+        float saldo = usuario.getReais();
+        float saldoxrp = usuario.getRipple();
+        float compraxrp = usuario.getCompra();
+        float cotxrp = usuario.getCotacao();
+        double conta = (float) (compraxrp*cotxrp)*1.02;
+        double conta2 = saldo - conta;
+        System.out.println(usuario.getCpflogado());
+        System.out.println(conta2);
+         
+        if(saldo-conta <0){
+            System.out.println("Impossible");
+        }else{ 
+            double novosaldobrl =  (saldo - conta);
+            double novosaldoxrp = saldoxrp + compraxrp;
+            try{
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, ripple = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setDouble(2, novosaldoxrp);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+                atualizarSaldoStatement.close();
+        }catch(SQLException e){
+            
+        }}
+}
+    public void vendabtc(Usuario usuario){
+
+            float saldo = usuario.getReais();
+            float saldobtc = usuario.getBitcoin();
+            float vendabtc = usuario.getCompra();
+            float cotbtc = usuario.getCotacao();
+            double conta = (float) (vendabtc*cotbtc)*1.03;
+            double conta2 = saldo - conta;
+            System.out.println(usuario.getCpflogado());
+            System.out.println(conta2);
+
+            if(saldo-conta <0){
+                System.out.println("Impossible");
+            }else{ 
+                double novosaldobrl =  (saldo + conta);
+                double novosaldobtc = saldobtc - vendabtc;
+                try{
+                    String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, bitcoin = ? WHERE cpf = ?";
+                    PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                    atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                    atualizarSaldoStatement.setDouble(2, novosaldobtc);
+                    atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                    atualizarSaldoStatement.executeUpdate();
+                    atualizarSaldoStatement.close();
+            }catch(SQLException e){
+
+            }} 
+
+
+         }
+    public void vendaeth(Usuario usuario){
+         
+        float saldo = usuario.getReais();
+        float saldoeth = usuario.getBitcoin();
+        float vendaeth = usuario.getCompra();
+        float coteth = usuario.getCotacao();
+        double conta = (float) (vendaeth*coteth)*1.03;
+        
+         
+        if(saldo-conta <0){
+            System.out.println("Impossible");
+        }else{ 
+            double novosaldobrl =  (saldo + conta);
+            double novosaldoeth = saldoeth - vendaeth;
+            try{
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, ethereum = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setDouble(2, novosaldoeth);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+                atualizarSaldoStatement.close();
+        }catch(SQLException e){
+            
+        }} 
+         
+         
+     }
+    public void vendaxrp(Usuario usuario){
+         
+        float saldo = usuario.getReais();
+        float saldoxrp = usuario.getRipple();
+        float vendaxrp = usuario.getCompra();
+        float cotxrp = usuario.getCotacao();
+        double conta = (float) (vendaxrp*cotxrp)*1.03;
+        double conta2 = saldo - conta;
+        String cpflogado = usuario.getCpflogado();
+         
+        if(saldo-conta <0){
+            System.out.println("Impossible");
+        }else{ 
+            double novosaldobrl =  (saldo + conta);
+            double novosaldoxrp = saldoxrp - vendaxrp;
+            
+            try{
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, ripple = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setDouble(2, novosaldoxrp);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+                atualizarSaldoStatement.close();
+                
+                
+        }catch(SQLException e){
+            
+        }} 
+         
+         
+     }
+    
+    
 }

@@ -12,7 +12,7 @@ public class Usuario {
     
     
     private String cpf, senha,cpflogado, nome;
-    private float ripple, ethereum, bitcoin, reais, ValorDeposito;
+    private float ripple, ethereum, bitcoin, reais, ValorDeposito, compra, cotacao, saldo;
     
     
 
@@ -45,6 +45,19 @@ public class Usuario {
         this.cpflogado = cpflogado;
     }
 
+    public Usuario(String cpflogado, float compra, float cotacao, float saldo) {
+        this.cpflogado = cpflogado;
+        this.compra = compra;
+        this.cotacao = cotacao;
+        this.saldo = saldo;
+    }
+
+    
+    
+    
+    
+    
+
     public String getCpflogado() {
         return cpflogado;
     }
@@ -57,9 +70,7 @@ public class Usuario {
         return ValorDeposito;
     }
 
-    public void setValorDeposito(float ValorDeposito) {
-        this.ValorDeposito = ValorDeposito;
-    }
+    
 
     public String getCpf() {
         return cpf;
@@ -112,6 +123,14 @@ public class Usuario {
 
     public String getNome() {
         return nome;
+    }
+
+    public float getCompra() {
+        return compra;
+    }
+
+    public float getCotacao() {
+        return cotacao;
     }
     
 

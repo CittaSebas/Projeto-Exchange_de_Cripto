@@ -72,6 +72,11 @@ public class FrameUsuario extends javax.swing.JFrame {
         btnsair.setText("Sair");
 
         btnvendercripto.setText("Vender Cripto");
+        btnvendercripto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnvendercriptoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,6 +149,13 @@ public class FrameUsuario extends javax.swing.JFrame {
         fcc.setVisible(true);
         dispose();
     }//GEN-LAST:event_btncomprarcriptoActionPerformed
+
+    private void btnvendercriptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvendercriptoActionPerformed
+        // TODO add your handling code here:
+        FrameVendaCripto fv = new FrameVendaCripto(cpflogado);
+        fv.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnvendercriptoActionPerformed
 
     /**
      * @param args the command line arguments
