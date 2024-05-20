@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import model.Extrato;
 import model.Usuario;
 
@@ -19,25 +20,30 @@ import model.Usuario;
  * @author citta
  */
 public class UsuarioDAO {
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    
     
     private Connection conn;
 
     public UsuarioDAO(Connection conn) {
         this.conn = conn;
     }
-    public String formatarTimestamp(Timestamp timestamp) {
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    return formato.format(timestamp);
-}
     
     public ResultSet consultar(Usuario usuario) throws SQLException{
         
-        String sql = "select * from usuarios where cpf = ? and senha = ?";
+        String sql = "select * from usuarios where cpf = ? ";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1,usuario.getCpf());
-        statement.setString(2,usuario.getSenha());
         statement.execute();
         ResultSet resultado = statement.getResultSet();
+        return resultado;
+    }
+    public ResultSet consultarsaldo(Usuario usuario) throws SQLException{
+        
+        String sql = "select * from usuarios where cpf = ? ";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1,usuario.getCpflogado());
+        ResultSet resultado = statement.executeQuery();
         return resultado;
     }
     
@@ -166,10 +172,338 @@ public class UsuarioDAO {
                 append(timestamp).append(" ").append(transacao).append(" ")
                 .append("CT: ").append(cotacao).append(" ")
                 .append("TX: ").append(taxa+ " ").append("REAL: ").append(reais+ " ")
-                .append("BTC: ").append(bitcoin + " ").append("BTC: ").append(bitcoin+" ")
+                .append("BTC: ").append(bitcoin + " ")
                 .append("ETH: ").append(ethereum+" ").append("XRP: ").append(ripple+" ").append("\n");
     }
-        System.out.println(extratoString.toString());
         return extratoString.toString();
     }
+     
+    public void comprabtc(Usuario usuario){
+         
+    float saldo = usuario.getReais();
+    float saldobtc = usuario.getSaldocripto();
+    float comprabtc = usuario.getCompra();
+    float cotbtc = usuario.getCotacao();
+    double totalCompra = (float) (comprabtc * cotbtc) * 1.02;
+    double taxaTransacao = totalCompra - (comprabtc * cotbtc);
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    data.setNanos(0);
+    
+     
+    if(saldo-totalCompra <0){
+        System.out.println("Impossible");
+    } else { 
+        double novosaldobrl =  (saldo - totalCompra);
+        double novosaldobtc = saldobtc + comprabtc;
+        
+        try {
+            String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, bitcoin = ? WHERE cpf = ?";
+            PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+            atualizarSaldoStatement.setDouble(1, novosaldobrl);
+            atualizarSaldoStatement.setDouble(2, novosaldobtc);
+            atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+            atualizarSaldoStatement.executeUpdate();
+            
+            ResultSet res = consultarsaldo(usuario);
+            if (res.next()) { 
+                System.out.println(res.getFloat("bitcoin"));
+
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setFloat(3, res.getFloat("ripple"));
+                extratostatement.setDouble(4, novosaldobtc);
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setFloat(6, res.getFloat("ethereum"));
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, cotbtc);
+                extratostatement.setString(9, "+"+ comprabtc + " BTC");
+                extratostatement.executeUpdate();
+                extratostatement.close(); 
+                atualizarSaldoStatement.close();
+            } else {
+                // Caso erro
+            }
+        } catch(SQLException e) 
+            {
+            System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+            e.printStackTrace();
+            }
+        }
+    }
+
+     
+    public void compraeth(Usuario usuario){
+         
+    float saldo = usuario.getReais();
+    float saldoeth = usuario.getSaldocripto();
+   
+    float compraeth = usuario.getCompra();
+    float coteth = usuario.getCotacao();
+    double totalCompra = (float) (compraeth * coteth) * 1.01;
+    double taxaTransacao = totalCompra - (compraeth * coteth);
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    data.setNanos(0);
+    
+     
+    if(saldo-totalCompra <0){
+        System.out.println("Impossible");
+    } else { 
+        double novosaldobrl =  (saldo - totalCompra);
+        double novosaldoeth = saldoeth + compraeth;
+        
+        try {
+            String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, ethereum = ? WHERE cpf = ?";
+            PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+            atualizarSaldoStatement.setDouble(1, novosaldobrl);
+            atualizarSaldoStatement.setDouble(2, novosaldoeth);
+            atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+            atualizarSaldoStatement.executeUpdate();
+            
+            ResultSet res = consultarsaldo(usuario);
+            if (res.next()) { 
+                System.out.println(res.getFloat("bitcoin"));
+
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setFloat(3, res.getFloat("ripple"));
+                extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setDouble(6, novosaldoeth);
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, coteth);
+                extratostatement.setString(9, "+"+ compraeth + " ETH");
+                extratostatement.executeUpdate();
+                extratostatement.close(); 
+                atualizarSaldoStatement.close();
+            } else {
+                // Caso erro
+            }
+        } catch(SQLException e) 
+            {
+            System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+            e.printStackTrace();
+            }
+        }
+    }
+
+public void compraxrp(Usuario usuario){
+         
+    float saldo = usuario.getReais();
+    float saldoxrp = usuario.getSaldocripto();
+   
+    float compraxrp = usuario.getCompra();
+    float cotxrp = usuario.getCotacao();
+    double totalCompra = (float) (compraxrp * cotxrp) * 1.01;
+    double taxaTransacao = totalCompra - (compraxrp * cotxrp);
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    data.setNanos(0);
+    
+     
+    if(saldo-totalCompra <0){
+        System.out.println("Impossible");
+    } else { 
+        double novosaldobrl =  (saldo - totalCompra);
+        double novosaldoxrp = saldoxrp + compraxrp;
+        
+        try {
+            String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, ripple = ? WHERE cpf = ?";
+            PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+            atualizarSaldoStatement.setDouble(1, novosaldobrl);
+            atualizarSaldoStatement.setDouble(2, novosaldoxrp);
+            atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+            atualizarSaldoStatement.executeUpdate();
+            
+            ResultSet res = consultarsaldo(usuario);
+            if (res.next()) { 
+                System.out.println(res.getFloat("bitcoin"));
+
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setDouble(3, novosaldoxrp);
+                extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setDouble(6, res.getDouble("ethereum"));
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, cotxrp);
+                extratostatement.setString(9, "+"+ compraxrp + " XRP");
+                extratostatement.executeUpdate();
+                extratostatement.close(); 
+                atualizarSaldoStatement.close();
+            } else {
+                // Caso erro
+            }
+        } catch(SQLException e) 
+            {
+            System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+            e.printStackTrace();
+            }
+        }
+    }
+
+    public void vendabtc(Usuario usuario) {
+    float saldo = usuario.getReais();
+    float saldobtc = usuario.getSaldocripto();
+    float vendabtc = usuario.getCompra(); 
+    float cotbtc = usuario.getCotacao();
+    double totalVenda = (float) (vendabtc * cotbtc) * 0.97;
+    double taxaTransacao = (vendabtc*cotbtc) - totalVenda;
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    data.setNanos(0);
+
+    if (saldobtc - vendabtc < 0) { 
+        System.out.println("Impossible");
+    } else {
+        double novosaldobrl = saldo + totalVenda; 
+        double novosaldobtc = saldobtc - vendabtc; 
+
+        try {
+            String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, bitcoin = ? WHERE cpf = ?";
+            PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+            atualizarSaldoStatement.setDouble(1, novosaldobrl);
+            atualizarSaldoStatement.setDouble(2, novosaldobtc);
+            atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+            atualizarSaldoStatement.executeUpdate();
+            atualizarSaldoStatement.close();
+
+            ResultSet res = consultarsaldo(usuario);
+            if (res.next()) { 
+                System.out.println(res.getFloat("bitcoin"));
+
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setFloat(3, res.getFloat("ripple")); 
+                extratostatement.setDouble(4, novosaldobtc);
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setFloat(6, res.getFloat("ethereum")); 
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, cotbtc);
+                extratostatement.setString(9, "-" + vendabtc + " BTC"); 
+                extratostatement.executeUpdate();
+                extratostatement.close();
+            } else {
+                
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao executar a função vendabtc: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+
+    public void vendaeth(Usuario usuario) {
+    float saldo = usuario.getReais();
+    float saldoeth = usuario.getSaldocripto();
+    float vendaeth = usuario.getCompra(); 
+    float coteth = usuario.getCotacao();
+    double totalVenda = (float) (vendaeth * coteth) * 0.97; 
+    double taxaTransacao = (vendaeth*coteth)-totalVenda;
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    data.setNanos(0);
+
+    if (saldoeth - vendaeth < 0) { 
+        System.out.println("Impossible");
+    } else {
+        double novosaldobrl = saldo + totalVenda; 
+        double novosaldoeth = saldoeth - vendaeth; 
+
+        try {
+            String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, bitcoin = ? WHERE cpf = ?";
+            PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+            atualizarSaldoStatement.setDouble(1, novosaldobrl);
+            atualizarSaldoStatement.setDouble(2, novosaldoeth);
+            atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+            atualizarSaldoStatement.executeUpdate();
+            atualizarSaldoStatement.close();
+
+            ResultSet res = consultarsaldo(usuario);
+            if (res.next()) { 
+
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setFloat(3, res.getFloat("ripple")); 
+                extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setDouble(6, novosaldoeth); 
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, coteth);
+                extratostatement.setString(9, "-" + vendaeth + " ETH"); 
+                extratostatement.executeUpdate();
+                extratostatement.close();
+            } else {
+                
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao executar a função vendabtc: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+    public void vendaxrp(Usuario usuario) {
+    float saldo = usuario.getReais();
+    float saldoxrp = usuario.getSaldocripto();
+    float vendaxrp = usuario.getCompra(); 
+    float cotxrp = usuario.getCotacao();
+    double totalVenda = (float) (vendaxrp * cotxrp) * 0.97; 
+    double taxaTransacao =  (vendaxrp*cotxrp) - totalVenda;
+    java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    data.setNanos(0);
+
+    if (saldoxrp - vendaxrp < 0) { 
+        System.out.println("Impossible");
+    } else {
+        double novosaldobrl = saldo + totalVenda; 
+        double novosaldoxrp = saldoxrp - vendaxrp; 
+
+        try {
+            String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, bitcoin = ? WHERE cpf = ?";
+            PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+            atualizarSaldoStatement.setDouble(1, novosaldobrl);
+            atualizarSaldoStatement.setDouble(2, novosaldoxrp);
+            atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+            atualizarSaldoStatement.executeUpdate();
+            atualizarSaldoStatement.close();
+
+            ResultSet res = consultarsaldo(usuario);
+            if (res.next()) { 
+
+                String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                extratostatement.setTimestamp(1, data);
+                extratostatement.setString(2, usuario.getCpflogado());
+                extratostatement.setDouble(3, novosaldoxrp); 
+                extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                extratostatement.setDouble(5, novosaldobrl);
+                extratostatement.setDouble(6, res.getFloat("ethereum")); 
+                extratostatement.setDouble(7, taxaTransacao);
+                extratostatement.setFloat(8, cotxrp);
+                extratostatement.setString(9, "-" + vendaxrp + " XRP"); 
+                extratostatement.executeUpdate();
+                extratostatement.close();
+            } else {
+                
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao executar a função vendabtc: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+    
+    
 }

@@ -12,6 +12,7 @@ import javax.swing.JTextField;
  * @author citta
  */
 public class FrameDeposito extends javax.swing.JFrame {
+    private String cpflogado;
 
     public JTextField getTxtvalordeposito() {
         return txtvalordeposito;
@@ -27,6 +28,7 @@ public class FrameDeposito extends javax.swing.JFrame {
      */
     public FrameDeposito(String cpflogado) {
         initComponents();
+        this.cpflogado = cpflogado;
         controller = new DepositoController(this,cpflogado);
     }
 
@@ -115,6 +117,9 @@ public class FrameDeposito extends javax.swing.JFrame {
     private void btndepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndepositarActionPerformed
         // TODO add your handling code here:
         controller.depositar();
+        FrameUsuario fu = new FrameUsuario(cpflogado);
+        fu.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btndepositarActionPerformed
 
     /**

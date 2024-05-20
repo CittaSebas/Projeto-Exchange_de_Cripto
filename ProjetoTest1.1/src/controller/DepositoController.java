@@ -37,6 +37,7 @@ public class DepositoController {
             Connection conn = conexao.getConnection();
             UsuarioDAO dao = new UsuarioDAO(conn);
             dao.atualizarSaldo(usuario);
+            JOptionPane.showMessageDialog(view, "Transação ocorreu com sucesso!");
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(view,"Erro de conexão");

@@ -5,6 +5,9 @@
 package view;
 
 import controller.SaldoController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
@@ -36,7 +39,40 @@ public class FrameSaldo extends javax.swing.JFrame {
         this.cpflogado = cpflogado;
         controller = new SaldoController(this, cpflogado);
         txtareasaldo.setEditable(false);
-        
+         //Puxando valores do ResultSet para variaveis locais 
+        ResultSet res = controller.consultarsaldo();
+    try {
+        if (res.next()) {
+            
+            String nome = res.getString("nome");
+            
+            String cpf = res.getString("cpf");
+            
+            String saldo = res.getString("reais");
+            
+            String saldobtc = res.getString("bitcoin");
+            
+            String saldoeth = res.getString("ethereum");
+            
+            String saldoxrp = res.getString("ripple");
+            
+            StringBuilder saldoString = new StringBuilder();
+            
+            saldoString.append("Nome: " +nome + "\n" ).append("CPF: " + cpf + "\n \n")
+                    .append("Reais: "+saldo + " \n").append("Bitcoin: "+ saldobtc + "\n")
+                    .append("Ethereum: "+saldoeth+"\n").append("Ripple: "+saldoxrp + "\n");
+            
+            txtareasaldo.append(saldoString.toString());
+            
+            
+        } else {
+            // 
+            JOptionPane.showMessageDialog(this, "Erro ao buscar dados");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Erro de conexão");
+        e.printStackTrace();
+    }
     }
 
     /**
@@ -54,6 +90,8 @@ public class FrameSaldo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtareaextrato = new javax.swing.JTextArea();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +112,20 @@ public class FrameSaldo extends javax.swing.JFrame {
         txtareaextrato.setColumns(20);
         txtareaextrato.setRows(5);
         jScrollPane2.setViewportView(txtareaextrato);
+
+        jMenu1.setText("Menu");
+        jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu1MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +160,7 @@ public class FrameSaldo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
 
@@ -120,6 +172,13 @@ public class FrameSaldo extends javax.swing.JFrame {
         String string = controller.imprimirextrato();
         txtareaextrato.append(string);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
+        // TODO add your handling code here:
+        FrameUsuario fu = new FrameUsuario(cpflogado);
+        fu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu1MenuSelected
 
     /**
      * @param args the command line arguments
@@ -158,6 +217,8 @@ public class FrameSaldo extends javax.swing.JFrame {
 private SaldoController controller;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblframe;
