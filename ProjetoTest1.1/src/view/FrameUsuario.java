@@ -59,6 +59,11 @@ public class FrameUsuario extends javax.swing.JFrame {
         });
 
         btnsacar.setText("Sacar");
+        btnsacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsacarActionPerformed(evt);
+            }
+        });
 
         btncomprarcripto.setText("Comprar  Cripto");
         btncomprarcripto.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +161,13 @@ public class FrameUsuario extends javax.swing.JFrame {
         fv.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnvendercriptoActionPerformed
+
+    private void btnsacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsacarActionPerformed
+        // TODO add your handling code here:
+        FrameSaque fs = new FrameSaque(cpflogado);
+        fs.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnsacarActionPerformed
 
     /**
      * @param args the command line arguments

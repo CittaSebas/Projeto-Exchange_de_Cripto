@@ -22,7 +22,6 @@ import model.Usuario;
 public class UsuarioDAO {
     java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
     
-    
     private Connection conn;
 
     public UsuarioDAO(Connection conn) {
@@ -59,7 +58,7 @@ public class UsuarioDAO {
     statement.setString(7, usuario.getNome());
     statement.executeUpdate();
     statement.close(); 
-}
+    }
 
     
     public void excluir(Usuario usuario) throws SQLException{
@@ -78,60 +77,57 @@ public class UsuarioDAO {
         statement.execute();
         conn.close();
     }
-    public void atualizarSaldo(Usuario usuario) throws SQLException {
-        
-        try{
-    // Consultar o saldo atual do usuario
-    String consultaSaldoSQL = "SELECT reais FROM usuarios WHERE cpf = ?";
-    PreparedStatement consultaSaldoStatement = conn.prepareStatement(consultaSaldoSQL);
-    consultaSaldoStatement.setString(1, usuario.getCpflogado());
-    ResultSet resultado = consultaSaldoStatement.executeQuery();
     
-    // Verificar se o usuario foi encontrado
-    if (resultado.next()) {
-        // Obter o saldo atual do usuario
-        float saldoAtual = resultado.getFloat("reais");
-        
-        java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
-        data.setNanos(0);
-        
-        
-        // Calcular o novo saldo (saldo atual + valor do depósito)
-        float novoSaldo = saldoAtual + usuario.getValorDeposito();
-        
-        // Atualizar o saldo no banco de dados
-        String atualizarSaldoSQL = "UPDATE usuarios SET reais = ? WHERE cpf = ?";
-        PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
-        atualizarSaldoStatement.setFloat(1, novoSaldo);
-        atualizarSaldoStatement.setString(2, usuario.getCpflogado());
-        atualizarSaldoStatement.executeUpdate();
-        atualizarSaldoStatement.close();
-        
-        String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
-        extratostatement.setTimestamp(1, data);
-        extratostatement.setString(2, usuario.getCpflogado());
-        extratostatement.setFloat(3, usuario.getRipple());
-        extratostatement.setFloat(4, usuario.getBitcoin());
-        extratostatement.setFloat(5, novoSaldo);
-        extratostatement.setFloat(6, usuario.getEthereum());
-        extratostatement.setFloat(7, 0f);
-        extratostatement.setFloat(8, 0f);
-        extratostatement.setString(9, "+"+ usuario.getValorDeposito() + " REAL");
-        extratostatement.executeUpdate();
-        extratostatement.close(); 
-        
-        
-        consultaSaldoStatement.close();
-        
-    } else {
-        
-    }}
-        catch(SQLException e){
-            System.err.println("Ocorreu um erro ao atualizar o saldo do usuário: " + e.getMessage());
+    public void atualizarSaldo(Usuario usuario, int cod) throws SQLException {
+    if (cod != 0 && cod != 1) {
+        throw new IllegalArgumentException("Código de operação inválido. Use 1 para depósito e 0 para saque.");
+    }
+
+    String consultaSaldoSQL = "SELECT * FROM usuarios WHERE cpf = ?";
+    String atualizarSaldoSQL = "UPDATE usuarios SET reais = ? WHERE cpf = ?";
+    String extratoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao)"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    try (PreparedStatement consultaSaldoStatement = conn.prepareStatement(consultaSaldoSQL)) {
+        consultaSaldoStatement.setString(1, usuario.getCpflogado());
+        try (ResultSet resultado = consultaSaldoStatement.executeQuery()) {
+            if (resultado.next()) {
+                float saldoAtual = resultado.getFloat("reais");
+                float novoSaldo = cod == 1 ? saldoAtual + usuario.getValorDeposito() : saldoAtual - usuario.getValorDeposito();
+
+                if (cod == 0 && novoSaldo < 0) {
+                    throw new SQLException("Saldo insuficiente para realizar o saque.");
+                }
+
+                try (PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL)) {
+                    atualizarSaldoStatement.setFloat(1, novoSaldo);
+                    atualizarSaldoStatement.setString(2, usuario.getCpflogado());
+                    atualizarSaldoStatement.executeUpdate();
+                }
+
+                java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+                data.setNanos(0);
+
+                try (PreparedStatement extratoStatement = conn.prepareStatement(extratoSQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                    extratoStatement.setTimestamp(1, data);
+                    extratoStatement.setString(2, usuario.getCpflogado());
+                    extratoStatement.setFloat(3, resultado.getFloat("ripple"));
+                    extratoStatement.setFloat(4, resultado.getFloat("bitcoin"));
+                    extratoStatement.setFloat(5, novoSaldo);
+                    extratoStatement.setFloat(6, resultado.getFloat("ethereum"));
+                    extratoStatement.setFloat(7, 0f);
+                    extratoStatement.setFloat(8, 0f);
+                    String transacao = (cod == 1 ? "+" : "-") + usuario.getValorDeposito() + " REAL";
+                    extratoStatement.setString(9, transacao);
+                    extratoStatement.executeUpdate();
+                }
+            } else {
+                throw new SQLException("Usuário não encontrado com o CPF: " + usuario.getCpflogado());
+                }
+            }
         }
-}
+    }
+
 
     
      public String imprimirextrato(Extrato extrato) throws SQLException{
