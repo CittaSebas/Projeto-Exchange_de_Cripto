@@ -129,7 +129,9 @@ public class FrameMenu extends javax.swing.JFrame {
 
     private void btnatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizarActionPerformed
         
-       
+       FrameAtualizar fa = new FrameAtualizar();
+       fa.setVisible(true);
+       dispose();
         
     }//GEN-LAST:event_btnatualizarActionPerformed
 

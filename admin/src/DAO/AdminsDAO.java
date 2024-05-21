@@ -111,47 +111,52 @@ public class AdminsDAO {
     }
 
 
-public String imprimirextrato(Extrato extrato) throws SQLException{
-        StringBuilder extratoString = new StringBuilder();
-        
-        // Consulta para obter o nome do cliente
-    String sqlnome = "select nome from usuarios where cpf = ?";
-    PreparedStatement stat = conn.prepareStatement(sqlnome);
-    stat.setString(1, extrato.getCpfusuario());
-    ResultSet res = stat.executeQuery(); 
-    String nome = "";
-    if (res.next()) {
-        nome = res.getString("nome");
-    }
-         
-        
-        String sql = "select * from extrato where cpf = ?";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1,extrato.getCpfusuario());
-        statement.execute();
-        ResultSet resultado = statement.getResultSet();
-        
-        while (resultado.next()) {
-        // Extrair os valores das colunas
-        String cpf = resultado.getString("cpf");
-        java.sql.Timestamp timestamp = resultado.getTimestamp("data");
-        String transacao = resultado.getString("transacao");
-        Float cotacao = resultado.getFloat("cotacao");
-        Float taxa = resultado.getFloat("taxa");
-        Float reais = resultado.getFloat("reais");
-        Float bitcoin = resultado.getFloat("bitcoin");
-        Float ethereum = resultado.getFloat("ethereum");
-        Float ripple = resultado.getFloat("ripple");
-        
-        
-        // Imprimir os valores
-        extratoString.append(cpf).append("\n").append("Nome: ").append(nome).append("\n").
-                append(timestamp).append(" ").append(transacao).append(" ")
-                .append("CT: ").append(cotacao).append(" ")
-                .append("TX: ").append(taxa+ " ").append("REAL: ").append(reais+ " ")
-                .append("BTC: ").append(bitcoin + " ")
-                .append("ETH: ").append(ethereum+" ").append("XRP: ").append(ripple+" ").append("\n");
-    }
-        return extratoString.toString();
-    }
+    public String imprimirextrato(Extrato extrato) throws SQLException{
+            StringBuilder extratoString = new StringBuilder();
+
+            // Consulta para obter o nome do cliente
+        String sqlnome = "select nome from usuarios where cpf = ?";
+        PreparedStatement stat = conn.prepareStatement(sqlnome);
+        stat.setString(1, extrato.getCpfusuario());
+        ResultSet res = stat.executeQuery(); 
+        String nome = "";
+        if (res.next()) {
+            nome = res.getString("nome");
+        }
+
+
+            String sql = "select * from extrato where cpf = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,extrato.getCpfusuario());
+            statement.execute();
+            ResultSet resultado = statement.getResultSet();
+
+            while (resultado.next()) {
+            // Extrair os valores das colunas
+            String cpf = resultado.getString("cpf");
+            java.sql.Timestamp timestamp = resultado.getTimestamp("data");
+            String transacao = resultado.getString("transacao");
+            Float cotacao = resultado.getFloat("cotacao");
+            Float taxa = resultado.getFloat("taxa");
+            Float reais = resultado.getFloat("reais");
+            Float bitcoin = resultado.getFloat("bitcoin");
+            Float ethereum = resultado.getFloat("ethereum");
+            Float ripple = resultado.getFloat("ripple");
+
+
+            // Imprimir os valores
+            extratoString.append(cpf).append("\n").append("Nome: ").append(nome).append("\n").
+                    append(timestamp).append(" ").append(transacao).append(" ")
+                    .append("CT: ").append(cotacao).append(" ")
+                    .append("TX: ").append(taxa+ " ").append("REAL: ").append(reais+ " ")
+                    .append("BTC: ").append(bitcoin + " ")
+                    .append("ETH: ").append(ethereum+" ").append("XRP: ").append(ripple+" ").append("\n");
+        }
+            return extratoString.toString();
+        }
+    
+    
+    
 }
+
+
