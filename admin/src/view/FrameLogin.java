@@ -122,7 +122,7 @@ public class FrameLogin extends javax.swing.JFrame {
         int cod = controller.loginUsuario();
         if(cod == 1){
             cpflogado = this.getTxtcpf().getText();
-            FrameMenu fm = new FrameMenu(cpflogado);
+            FrameMenu fm = new FrameMenu();
             fm.setVisible(true);
             dispose();
         } else if(cod == 2){

@@ -9,7 +9,7 @@ package model;
  * @author Sebastian
  */
 public class Administrador {
-    private String cpf, senha,cpflogado, nome,cpfusuario;
+    private String cpf, senha, nome,cpfusuario;
     
     
 
@@ -37,12 +37,12 @@ public class Administrador {
        
     }
 
-    public String getCpflogado() {
-        return cpflogado;
+    public String getCpfusuario() {
+        return cpfusuario;
     }
 
-    public void setCpflogado(String cpflogado) {
-        this.cpflogado = cpflogado;
+    public void setCpfusuario(String cpflogado) {
+        this.cpfusuario = cpfusuario;
     }
 
     public String getCpf() {
