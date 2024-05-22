@@ -78,8 +78,6 @@ public class AdminsDAO {
     
     try ( // Supondo que você tenha um método getConnection()
         PreparedStatement statement = conn.prepareStatement(sql)) {
-        System.out.println(admin.getCpf());
-        System.out.println(admin.getSenha());
         statement.setString(1, admin.getCpf());
         statement.setString(2, admin.getSenha());
         statement.executeUpdate();

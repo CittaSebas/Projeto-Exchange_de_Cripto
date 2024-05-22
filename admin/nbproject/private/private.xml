@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sebastian/Documents/NetBeansProjects/admin/src/DAO/AdminsDAO.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/NetBeansProjects/admin/src/view/FrameClientes.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/NetBeansProjects/admin/src/view/FrameMenu.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/NetBeansProjects/admin/src/view/FrameCriarCripto.java</file>
+            <file>file:/C:/Users/citta/Documents/GitHub/Projeto-Exchange_de_Cripto/admin/src/controller/CriarCriptoController.java</file>
+            <file>file:/C:/Users/citta/Documents/GitHub/Projeto-Exchange_de_Cripto/admin/src/model/Cotacao.java</file>
+            <file>file:/C:/Users/citta/Documents/GitHub/Projeto-Exchange_de_Cripto/admin/src/view/FrameCriarCripto.java</file>
+            <file>file:/C:/Users/citta/Documents/GitHub/Projeto-Exchange_de_Cripto/admin/src/DAO/CotDAO.java</file>
         </group>
     </open-files>
 </project-private>
