@@ -11,6 +11,7 @@ package model;
 public class Cotacao {
     int id;
     float cotxrp, cotbtc, cot, eth;
+    private String ida,nome,abreviacao,cotacao;
 
     public Cotacao(float cotxrp, float cotbtc, float cot, float eth, int id) {
         this.cotxrp = cotxrp;
@@ -22,6 +23,29 @@ public class Cotacao {
 
     public Cotacao(int id) {
         this.id = id;
+    }
+
+    public Cotacao(String ida, String nome, String abreviacao, String cotacao) {
+        this.ida = ida;
+        this.nome = nome;
+        this.abreviacao = abreviacao;
+        this.cotacao = cotacao;
+    }
+
+    public String getIda() {
+        return ida;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getAbreviacao() {
+        return abreviacao;
+    }
+
+    public String getCotacao() {
+        return cotacao;
     }
     
 
