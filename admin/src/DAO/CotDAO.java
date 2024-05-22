@@ -4,13 +4,10 @@
  */
 package DAO;
 
-import java.awt.List;
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import model.Usuario;
 import model.Cotacao;
@@ -47,7 +44,6 @@ public class CotDAO {
             stmt.executeUpdate();
         }
     }
-    
     
     public void adicionarmoeda(Cotacao moeda) throws SQLException {
         String[] moedas1 = new String[0];
@@ -118,5 +114,7 @@ public class CotDAO {
             }
         
     return moeda;}return moeda;
+        }
+    }
     
-}}}
+}
