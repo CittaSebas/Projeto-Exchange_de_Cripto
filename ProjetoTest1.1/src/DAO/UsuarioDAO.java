@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import model.Extrato;
@@ -27,6 +28,37 @@ public class UsuarioDAO {
     public UsuarioDAO(Connection conn) {
         this.conn = conn;
     }
+    
+    public String [] checkarmoedas(Usuario usuario) throws SQLException{
+        String sql1 = "SELECT criptos FROM usuarios WHERE cpf = ?";
+        String [] moeda = new String[0];
+        PreparedStatement statement = conn.prepareStatement(sql1);
+        statement.setString(1,usuario.getCpflogado());
+        ResultSet rs = statement.executeQuery();
+        
+        
+        while (rs.next()) {
+            java.sql.Array criptos = rs.getArray("criptos"); // Obtendo o array SQL
+            String[] str_critpos = (String[]) criptos.getArray(); // Convertendo para array de String
+
+            if (str_critpos.length == 4) {
+                System.out.println("Array with 4 elements: " + Arrays.toString(str_critpos));
+                return str_critpos; // Retorna o array diretamente se tiver 4 elementos
+            } else if (str_critpos.length == 8) {
+                String[] combinedArray = new String[8];
+                System.arraycopy(str_critpos, 0, combinedArray, 0, 8); // Copia todos os 8 elementos
+                System.out.println("Array with 8 elements: " + Arrays.toString(combinedArray));
+                return combinedArray;
+            }
+            else if (str_critpos.length == 12) {
+                String[] combinedArray = new String[12];
+                System.arraycopy(str_critpos, 0, combinedArray, 0, 11); // Copia todos os 8 elementos
+                System.out.println("Array with 12 elements: " + Arrays.toString(combinedArray));
+                return combinedArray;
+            }
+        
+    return moeda;}return moeda;
+        }
     
     public ResultSet consultar(Usuario usuario) throws SQLException{
         
@@ -314,6 +346,195 @@ public class UsuarioDAO {
             e.printStackTrace();
             }
         }
+    }
+    public void compramoeda1(Usuario usuario, String[] moeda) throws SQLException{
+        String saldoatual [] = checkarmoedas(usuario);
+        System.out.println(saldoatual.length);
+        float saldo = usuario.getReais();
+        float saldom1 = usuario.getSaldocripto();
+        float compram1 = usuario.getCompra();
+        float cotm1 = usuario.getCotacao();
+        double totalCompra = (float) (compram1 * cotm1) * 1.01;
+        double taxaTransacao = totalCompra - (compram1 * cotm1);
+        java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+        data.setNanos(0);
+    
+     
+        if(saldo-totalCompra <0){
+            System.out.println("Impossible");
+        } else { 
+            double novosaldobrl =  (saldo - totalCompra);
+            double novosaldom1 = saldom1 + compram1;
+            System.out.println(saldom1);
+            String nsstring = Double.toString(novosaldom1);
+            String id = moeda[0];
+            String nome = moeda[1];
+            String abr = moeda[3];
+            String[] moedap = {id,nome,nsstring,abr};
+            try {
+                System.arraycopy(moedap, 0, saldoatual, 0, 4);
+                java.sql.Array arrayUSA = conn.createArrayOf("text", saldoatual);
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, criptos = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setArray(2, arrayUSA);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+
+                ResultSet res = consultarsaldo(usuario);
+                if (res.next()) { 
+
+                    String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao,criptos)"
+                            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                    extratostatement.setTimestamp(1, data);
+                    extratostatement.setString(2, usuario.getCpflogado());
+                    extratostatement.setDouble(3, res.getFloat("ripple"));
+                    extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                    extratostatement.setDouble(5, novosaldobrl);
+                    extratostatement.setDouble(6, res.getDouble("ethereum"));
+                    extratostatement.setDouble(7, taxaTransacao);
+                    extratostatement.setFloat(8, cotm1);
+                    extratostatement.setString(9, "+"+ compram1 + " "+abr);
+                    extratostatement.setArray(10, arrayUSA);
+                    extratostatement.executeUpdate();
+                    extratostatement.close(); 
+                    atualizarSaldoStatement.close();
+                } else {
+                    // Caso erro
+                }
+            } catch(SQLException e) 
+                {
+                System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+                e.printStackTrace();
+                }
+            }
+    }
+    public void compramoeda2(Usuario usuario, String[] moeda) throws SQLException{
+        String saldoatual [] = checkarmoedas(usuario);
+        System.out.println(saldoatual.length);
+        float saldo = usuario.getReais();
+        float saldom1 = usuario.getSaldocripto();
+        float compram1 = usuario.getCompra();
+        float cotm1 = usuario.getCotacao();
+        double totalCompra = (float) (compram1 * cotm1) * 1.01;
+        double taxaTransacao = totalCompra - (compram1 * cotm1);
+        java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+        data.setNanos(0);
+    
+     
+        if(saldo-totalCompra <0){
+            System.out.println("Impossible");
+        } else { 
+            double novosaldobrl =  (saldo - totalCompra);
+            double novosaldom1 = saldom1 + compram1;
+            System.out.println(saldom1);
+            String nsstring = Double.toString(novosaldom1);
+            String id = moeda[0];
+            String nome = moeda[1];
+            String abr = moeda[3];
+            String[] moedap = {id,nome,nsstring,abr};
+            try {
+                saldoatual[6] = nsstring;
+                java.sql.Array arrayUSA = conn.createArrayOf("text", saldoatual);
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, criptos = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setArray(2, arrayUSA);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+
+                ResultSet res = consultarsaldo(usuario);
+                if (res.next()) { 
+
+                    String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao,criptos)"
+                            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                    extratostatement.setTimestamp(1, data);
+                    extratostatement.setString(2, usuario.getCpflogado());
+                    extratostatement.setDouble(3, res.getFloat("ripple"));
+                    extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                    extratostatement.setDouble(5, novosaldobrl);
+                    extratostatement.setDouble(6, res.getDouble("ethereum"));
+                    extratostatement.setDouble(7, taxaTransacao);
+                    extratostatement.setFloat(8, cotm1);
+                    extratostatement.setString(9, "+"+ compram1 + " "+abr);
+                    extratostatement.setArray(10, arrayUSA);
+                    extratostatement.executeUpdate();
+                    extratostatement.close(); 
+                    atualizarSaldoStatement.close();
+                } else {
+                    // Caso erro
+                }
+            } catch(SQLException e) 
+                {
+                System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+                e.printStackTrace();
+                }
+            }
+    }
+    public void compramoeda3(Usuario usuario, String[] moeda) throws SQLException{
+        String saldoatual [] = checkarmoedas(usuario);
+        System.out.println(saldoatual.length);
+        float saldo = usuario.getReais();
+        float saldom1 = usuario.getSaldocripto();
+        float compram1 = usuario.getCompra();
+        float cotm1 = usuario.getCotacao();
+        double totalCompra = (float) (compram1 * cotm1) * 1.01;
+        double taxaTransacao = totalCompra - (compram1 * cotm1);
+        java.sql.Timestamp data = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+        data.setNanos(0);
+    
+     
+        if(saldo-totalCompra <0){
+            System.out.println("Impossible");
+        } else { 
+            double novosaldobrl =  (saldo - totalCompra);
+            double novosaldom1 = saldom1 + compram1;
+            System.out.println(saldom1);
+            String nsstring = Double.toString(novosaldom1);
+            String id = moeda[0];
+            String nome = moeda[1];
+            String abr = moeda[3];
+            String[] moedap = {id,nome,nsstring,abr};
+            try {
+                saldoatual[10] = nsstring;
+                java.sql.Array arrayUSA = conn.createArrayOf("text", saldoatual);
+                String atualizarSaldoSQL = "UPDATE usuarios SET reais = ?, criptos = ? WHERE cpf = ?";
+                PreparedStatement atualizarSaldoStatement = conn.prepareStatement(atualizarSaldoSQL);
+                atualizarSaldoStatement.setDouble(1, novosaldobrl);
+                atualizarSaldoStatement.setArray(2, arrayUSA);
+                atualizarSaldoStatement.setString(3, usuario.getCpflogado());
+                atualizarSaldoStatement.executeUpdate();
+
+                ResultSet res = consultarsaldo(usuario);
+                if (res.next()) { 
+
+                    String extratodepositoSQL = "INSERT INTO extrato (data, cpf, ripple, bitcoin, reais, ethereum, taxa, cotacao, transacao,criptos)"
+                            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement extratostatement = conn.prepareStatement(extratodepositoSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                    extratostatement.setTimestamp(1, data);
+                    extratostatement.setString(2, usuario.getCpflogado());
+                    extratostatement.setDouble(3, res.getFloat("ripple"));
+                    extratostatement.setFloat(4, res.getFloat("bitcoin"));
+                    extratostatement.setDouble(5, novosaldobrl);
+                    extratostatement.setDouble(6, res.getDouble("ethereum"));
+                    extratostatement.setDouble(7, taxaTransacao);
+                    extratostatement.setFloat(8, cotm1);
+                    extratostatement.setString(9, "+"+ compram1 + " "+abr);
+                    extratostatement.setArray(10, arrayUSA);
+                    extratostatement.executeUpdate();
+                    extratostatement.close(); 
+                    atualizarSaldoStatement.close();
+                } else {
+                    // Caso erro
+                }
+            } catch(SQLException e) 
+                {
+                System.err.println("Erro ao executar a função comprabtc: " + e.getMessage());
+                e.printStackTrace();
+                }
+            }
     }
 
 public void compraxrp(Usuario usuario){

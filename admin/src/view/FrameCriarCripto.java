@@ -47,17 +47,7 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         this.txtid = txtid;
     }
 
-    public void setTxtid1(JTextField txtid1) {
-        this.txtid1 = txtid1;
-    }
-
-    public void setTxtid2(JTextField txtid2) {
-        this.txtid2 = txtid2;
-    }
-
-    public void setTxtid3(JTextField txtid3) {
-        this.txtid3 = txtid3;
-    }
+    
 
     public void setTxtnome1(JTextField txtnome1) {
         this.txtnome1 = txtnome1;
@@ -119,7 +109,6 @@ public class FrameCriarCripto extends javax.swing.JFrame {
             txtnome1.setVisible(true);
             txtvalor1.setVisible(true);
             txtabv1.setVisible(true);
-            txtid1.setText(moedas[0]);
             txtnome1.setText(moedas[1]);
             txtvalor1.setText(moedas[2]);
             txtabv1.setText(moedas[3]);
@@ -130,7 +119,6 @@ public class FrameCriarCripto extends javax.swing.JFrame {
             txtnome2.setVisible(true);
             txtvalor2.setVisible(true);
             txtabv2.setVisible(true);
-            txtid2.setText(moedas[4]);
             txtnome2.setText(moedas[5]);
             txtvalor2.setText(moedas[6]);
             txtabv2.setText(moedas[7]);
@@ -141,7 +129,6 @@ public class FrameCriarCripto extends javax.swing.JFrame {
             txtnome3.setVisible(true);
             txtvalor3.setVisible(true);
             txtabv3.setVisible(true);
-            txtid3.setText(moedas[8]);
             txtnome3.setText(moedas[9]);
             txtvalor3.setText(moedas[10]);
             txtabv3.setText(moedas[11]);
@@ -201,18 +188,21 @@ public class FrameCriarCripto extends javax.swing.JFrame {
 
         jLabel5.setText("Abreviacao da Moeda");
 
+        txtid1.setText("1");
         txtid1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtid1ActionPerformed(evt);
             }
         });
 
+        txtid2.setText("2");
         txtid2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtid2ActionPerformed(evt);
             }
         });
 
+        txtid3.setText("3");
         txtid3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtid3ActionPerformed(evt);

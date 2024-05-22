@@ -73,24 +73,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btncxrp" min="-2" pref="81" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="totaleth" min="-2" pref="49" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="totalxrp" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtxrp" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="txtxrp" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="txtcotripple" min="-2" pref="141" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="totalbtc" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <Component id="txtcotripple" min="-2" pref="141" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -107,6 +94,19 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,20 +142,18 @@
                           <Component id="txtxrp" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtcompraxrp" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="txtcomprabtc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="totaleth" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="totalxrp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="totalbtc" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -206,17 +204,14 @@
     <Component class="javax.swing.JTextField" name="txtbtc">
     </Component>
     <Component class="javax.swing.JTextField" name="txteth">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtethActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtxrp">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtxrpActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="totalbtc">
-    </Component>
-    <Component class="javax.swing.JTextField" name="totaleth">
-    </Component>
-    <Component class="javax.swing.JTextField" name="totalxrp">
     </Component>
     <Component class="javax.swing.JTextField" name="txtcomprabtc">
     </Component>
@@ -229,6 +224,19 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtcompraxrpActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Outras moedas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Confira nossas novas moedas"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

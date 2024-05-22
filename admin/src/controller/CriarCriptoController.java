@@ -40,6 +40,8 @@ public class CriarCriptoController {
             Connection conn = conexao.getConnection();
             CotDAO dao = new CotDAO(conn);
             dao.adicionarmoeda(moeda);
+            dao.updateCriptos(moeda);
+            
              JOptionPane.showMessageDialog(view, "Transação ocorreu com sucesso!");
             
         }catch(SQLException e){
@@ -53,6 +55,7 @@ public class CriarCriptoController {
             Connection conn = conexao.getConnection();
             CotDAO dao = new CotDAO(conn);
             moedas = dao.checkarmoedas();
+            
             return moedas;
         }catch(SQLException e){
             JOptionPane.showMessageDialog(view,"Erro de conexão");

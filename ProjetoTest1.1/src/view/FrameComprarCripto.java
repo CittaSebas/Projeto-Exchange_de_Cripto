@@ -63,17 +63,7 @@ public class FrameComprarCripto extends javax.swing.JFrame {
         return txtcoteth;
     }
 
-    public void setTotalbtc(JTextField totalbtc) {
-        this.totalbtc = totalbtc;
-    }
-
-    public void setTotaleth(JTextField totaleth) {
-        this.totaleth = totaleth;
-    }
-
-    public void setTotalxrp(JTextField totalxrp) {
-        this.totalxrp = totalxrp;
-    }
+    
 
     public JTextField getTxtcomprabtc() {
         return txtcomprabtc;
@@ -166,12 +156,11 @@ public class FrameComprarCripto extends javax.swing.JFrame {
         txtbtc = new javax.swing.JTextField();
         txteth = new javax.swing.JTextField();
         txtxrp = new javax.swing.JTextField();
-        totalbtc = new javax.swing.JTextField();
-        totaleth = new javax.swing.JTextField();
-        totalxrp = new javax.swing.JTextField();
         txtcomprabtc = new javax.swing.JTextField();
         txtcomrpaeth = new javax.swing.JTextField();
         txtcompraxrp = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menumenu = new javax.swing.JMenu();
 
@@ -202,6 +191,12 @@ public class FrameComprarCripto extends javax.swing.JFrame {
             }
         });
 
+        txteth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtethActionPerformed(evt);
+            }
+        });
+
         txtxrp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtxrpActionPerformed(evt);
@@ -219,6 +214,15 @@ public class FrameComprarCripto extends javax.swing.JFrame {
                 txtcompraxrpActionPerformed(evt);
             }
         });
+
+        jButton1.setText("Outras moedas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Confira nossas novas moedas");
 
         menumenu.setText("Menu");
         menumenu.addMenuListener(new javax.swing.event.MenuListener() {
@@ -267,18 +271,9 @@ public class FrameComprarCripto extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btncxrp, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(totaleth, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(totalxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtxrp))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtcotripple, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(totalbtc, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtxrp)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtcotripple, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -289,6 +284,15 @@ public class FrameComprarCripto extends javax.swing.JFrame {
                             .addComponent(txtcompraxrp, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtcomrpaeth))))
                 .addGap(49, 49, 49))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,16 +322,15 @@ public class FrameComprarCripto extends javax.swing.JFrame {
                             .addComponent(txtcotripple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtcompraxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(113, 113, 113))
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtcomprabtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(240, 240, 240)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totaleth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addGap(268, 268, 268))))
         );
 
         pack();
@@ -377,6 +380,17 @@ public class FrameComprarCripto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btncxrpActionPerformed
 
+    private void txtethActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtethActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtethActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        FrameCriptosNovas fcn = new FrameCriptosNovas(cpflogado);
+        fcn.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -416,13 +430,12 @@ private ComprarCriptoController controller;
     private javax.swing.JButton btncbtc;
     private javax.swing.JButton btnceth;
     private javax.swing.JButton btncxrp;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menumenu;
-    private javax.swing.JTextField totalbtc;
-    private javax.swing.JTextField totaleth;
-    private javax.swing.JTextField totalxrp;
     private javax.swing.JTextField txtbtc;
     private javax.swing.JTextField txtcomprabtc;
     private javax.swing.JTextField txtcompraxrp;

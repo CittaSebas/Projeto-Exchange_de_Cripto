@@ -128,6 +128,7 @@ public class FrameLogin extends javax.swing.JFrame {
         if(cod == 1){
             cpflogado = this.getTxtcpf().getText();
             FrameUsuario fu = new FrameUsuario(cpflogado);
+            JOptionPane.showMessageDialog(this, "Login feito!");
             fu.setVisible(true);
             dispose();
         } else if(cod == 2){
