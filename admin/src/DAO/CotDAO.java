@@ -50,8 +50,10 @@ public class CotDAO {
     
     
     public void adicionarmoeda(Cotacao moeda) throws SQLException {
+        String[] moedas1 = new String[0];
         String[] moedas = checkarmoedas();   
-        String[] totalmoedas = null;
+        
+        String[] totalmoedas = null ;
         String abr = moeda.getAbreviacao();
         System.out.println(moedas.length);
         String id = moeda.getIda();
@@ -59,9 +61,13 @@ public class CotDAO {
         String nome = moeda.getNome();
         
         String cotacao = moeda.getCotacao();
-        String a = moedas[0];
         
         String[] novamoeda = {id,nome,cotacao,abr};
+        if(moedas.length == 0){
+            totalmoedas = new String[moedas.length + 4]; // Allocate space for 4 more elements
+            System.arraycopy(moedas, 0, totalmoedas, 0, moedas.length); // Copy existing elements
+            System.arraycopy(novamoeda, 0, totalmoedas, moedas.length, novamoeda.length); 
+        }
         if(moedas.length == 4){
             totalmoedas = new String[moedas.length + 4]; // Allocate space for 4 more elements
             System.arraycopy(moedas, 0, totalmoedas, 0, moedas.length); // Copy existing elements
@@ -85,6 +91,8 @@ public class CotDAO {
     public String [] checkarmoedas() throws SQLException{
         String sql1 = "SELECT ID, criptos FROM cotacao ORDER BY data DESC LIMIT 1";
         String [] moedaexistente;
+        String [] moeda = new String[0];
+        
     try (
         PreparedStatement stmt = conn.prepareStatement(sql1);
         ResultSet rs = stmt.executeQuery()) {
@@ -102,7 +110,13 @@ public class CotDAO {
                 System.out.println("Array with 8 elements: " + Arrays.toString(combinedArray));
                 return combinedArray;
             }
+            else if (str_critpos.length == 12) {
+                String[] combinedArray = new String[12];
+                System.arraycopy(str_critpos, 0, combinedArray, 0, 11); // Copia todos os 8 elementos
+                System.out.println("Array with 12 elements: " + Arrays.toString(combinedArray));
+                return combinedArray;
+            }
         
-    return null;}return null;
+    return moeda;}return moeda;
     
 }}}

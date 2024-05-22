@@ -9,6 +9,7 @@ import DAO.CotDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import model.Cotacao;
 import view.FrameCriarCripto;
 
@@ -44,6 +45,23 @@ public class CriarCriptoController {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(view,"Erro de conexão");
         }}
-    }
+    
+    public String[] checkarmoedas(){
+        String[] moedas = new String[0];
+        Conexao conexao = new Conexao();
+        try{
+            Connection conn = conexao.getConnection();
+            CotDAO dao = new CotDAO(conn);
+            moedas = dao.checkarmoedas();
+            return moedas;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(view,"Erro de conexão");
+        }
+        
+    return moedas;}
+    
+    
+    
+}
     
 
