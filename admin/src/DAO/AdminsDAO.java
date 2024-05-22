@@ -73,22 +73,24 @@ public class AdminsDAO {
     statement.close();
 }
     
-    public void criaradmin(Administrador admin) throws SQLException {
-    String sql = "INSERT INTO administradores (cpf, senha) VALUES (?, ?)";
-    
-    try ( // Supondo que você tenha um método getConnection()
-        PreparedStatement statement = conn.prepareStatement(sql)) {
-        System.out.println(admin.getCpf());
-        System.out.println(admin.getSenha());
-        statement.setString(1, admin.getCpf());
-        statement.setString(2, admin.getSenha());
-        statement.executeUpdate();
-        
-        
+    public int criaradmin(Administrador admin) throws SQLException {
+    String sqlCheck = "SELECT cpf FROM administradores WHERE cpf = ?";
+    try (PreparedStatement statementCheck = conn.prepareStatement(sqlCheck)) {
+        statementCheck.setString(1, admin.getCpf());
+        ResultSet resCheck = statementCheck.executeQuery();
+        if (resCheck.next()) {
+            return 1;
+        } else {
+            String sqlInsert = "INSERT INTO administradores (cpf, senha) VALUES (?, ?)";
+            try (PreparedStatement statementInsert = conn.prepareStatement(sqlInsert)) {
+                statementInsert.setString(1, admin.getCpf());
+                statementInsert.setString(2, admin.getSenha());
+                statementInsert.executeUpdate();
+                return 0;
+            }
+        }
     } catch (SQLException e) {
-        // Aqui você pode registrar a exceção e/ou lançar uma nova exceção específica da sua aplicação
         e.printStackTrace();
-        // Logger.log(e); // Supondo que você tenha um sistema de logging
         throw new RuntimeException("Erro ao criar administrador", e);
     }
 }

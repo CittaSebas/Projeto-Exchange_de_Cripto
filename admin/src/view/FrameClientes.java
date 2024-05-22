@@ -57,6 +57,8 @@ public class FrameClientes extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtsenha = new javax.swing.JTextField();
         txtnome = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +102,21 @@ public class FrameClientes extends javax.swing.JFrame {
                 txtnomeActionPerformed(evt);
             }
         });
+
+        jMenu1.setText("Menu");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,6 +227,22 @@ public class FrameClientes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnsaldoActionPerformed
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        
+        FrameMenu fm = new FrameMenu();
+        fm.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        
+        FrameMenu fm = new FrameMenu();
+        fm.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -255,6 +288,8 @@ public class FrameClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField txtcpfusuario;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtsenha;

@@ -24,27 +24,26 @@ public class CriarContaController {
         this.view = view;
     }
     
-    public int cadastraradministrador(){
+    public void cadastraradministrador(){
         
-        String cpf = view.getTxtcpf().getText();
         String senha = view.getTxtsenha().getText();
+        String cpf = view.getTxtcpf().getText();
         Administrador admin = new Administrador(cpf,senha);
         Conexao conexao = new Conexao();
         try{
             Connection conn = conexao.getConnection();
             AdminsDAO dao = new AdminsDAO(conn);
-            ResultSet resultado = dao.loginadmin(admin);
-            if(resultado.next()){
-                return 0;
-            }
-            else{
-                dao.criaradmin(admin);
-                return 1;
-            }
+            int cod = dao.criaradmin(admin);
+            if(cod == 0){
+                JOptionPane.showMessageDialog(view, "Cadastrado!");
+            } else if (cod == 1){
+                JOptionPane.showMessageDialog(view, "CPF já cadastrado!");
+            }else{
+            JOptionPane.showMessageDialog(view, "Erro de conexão!");
+        }
 
         }catch (SQLException e){
             e.printStackTrace();
-            return 2;
             
         }
     }

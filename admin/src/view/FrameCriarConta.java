@@ -84,18 +84,12 @@ public class FrameCriarConta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btncriarcontaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncriarcontaActionPerformed
-        int cod = controller.cadastraradministrador();
-        if(cod == 1){
-            FrameLogin fl = new FrameLogin();
-            fl.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
-            dispose();
-        } else if(cod == 0){
-            JOptionPane.showMessageDialog(this, "CPF já cadastrado!");
-        } else{
-            JOptionPane.showMessageDialog(this, "Erro de conexão!");
-        }
-       
+        
+        controller.cadastraradministrador();
+        FrameLogin fl = new FrameLogin();
+        fl.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_btncriarcontaActionPerformed
   
     public JTextField getTxtcpf() {
