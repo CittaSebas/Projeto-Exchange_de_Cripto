@@ -24,7 +24,39 @@ public class FrameAtualizar extends javax.swing.JFrame {
         txtcotbtc.setEditable(false);
         txtcoteth.setEditable(false);
         txtcotxrp.setEditable(false);
+        txtcotmc1.setEditable(false);
+        txtcotmc2.setEditable(false);
+        txtcotmc3.setEditable(false);
+        txtcotmc1.setVisible(false);
+        txtcotmc2.setVisible(false);
+        txtcotmc3.setVisible(false);
+        lblm1.setVisible(false);
+        lblm2.setVisible(false);
+        lblm3.setVisible(false);
         updateCotacoes();
+        String [] moedas;
+        moedas = controller.checkarmoedas();
+        
+        if(moedas.length >= 4){
+            lblm1.setVisible(true);
+            txtcotmc1.setVisible(true);
+            lblm1.setText(moedas[1]);
+            txtcotmc1.setText(moedas[2]);
+        }
+         if(moedas.length>=8){
+            lblm2.setVisible(true);
+            txtcotmc2.setVisible(true);
+            lblm2.setText(moedas[5]);
+            txtcotmc2.setText(moedas[6]);
+            
+        }
+         if(moedas.length>=12){
+            lblm3.setVisible(true);
+            txtcotmc3.setVisible(true);
+            lblm3.setText(moedas[9]);
+            txtcotmc3.setText(moedas[10]);
+        }
+    
     }
 
     private void updateCotacoes() {
@@ -101,9 +133,9 @@ public class FrameAtualizar extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblm1 = new javax.swing.JLabel();
+        lblm2 = new javax.swing.JLabel();
+        lblm3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -126,11 +158,11 @@ public class FrameAtualizar extends javax.swing.JFrame {
 
         jLabel3.setText("Ripple");
 
-        jLabel4.setText("Moeda config1");
+        lblm1.setText("Moeda config1");
 
-        jLabel5.setText("Moeda config2");
+        lblm2.setText("Moeda config2");
 
-        jLabel6.setText("Moeda config3");
+        lblm3.setText("Moeda config3");
 
         jLabel7.setText("Ethereum");
 
@@ -156,9 +188,9 @@ public class FrameAtualizar extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
+                    .addComponent(lblm1)
+                    .addComponent(lblm2)
+                    .addComponent(lblm3)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -198,29 +230,20 @@ public class FrameAtualizar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotmc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(lblm1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotmc2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(lblm2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotmc3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(lblm3))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizarActionPerformed
-        
-        controller.atualizarCotas();
-        updateCotacoes();
-        
-   
-        
-    }//GEN-LAST:event_btnatualizarActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         
@@ -229,6 +252,13 @@ public class FrameAtualizar extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void btnatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizarActionPerformed
+
+        controller.atualizarCotas();
+        updateCotacoes();
+
+    }//GEN-LAST:event_btnatualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,15 +301,15 @@ public class FrameAtualizar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblm1;
+    private javax.swing.JLabel lblm2;
+    private javax.swing.JLabel lblm3;
     private javax.swing.JTextField txtcotbtc;
     private javax.swing.JTextField txtcoteth;
     private javax.swing.JTextField txtcotmc1;

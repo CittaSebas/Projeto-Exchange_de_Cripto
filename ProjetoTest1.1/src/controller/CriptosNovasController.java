@@ -14,6 +14,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import view.FrameCriptosNovas;
+import view.FrameVenderNovas;
 
 /**
  *
@@ -22,10 +23,16 @@ import view.FrameCriptosNovas;
 public class CriptosNovasController {
     private String cpflogado;
     private FrameCriptosNovas view;
+    private FrameVenderNovas view2;
 
     public CriptosNovasController( FrameCriptosNovas view,String cpflogado) {
         this.cpflogado = cpflogado;
         this.view = view;
+    }
+
+    public CriptosNovasController(FrameVenderNovas view2,String cpflogado) {
+        this.cpflogado = cpflogado;
+        this.view2 = view2;
     }
     
     
@@ -217,6 +224,91 @@ public class CriptosNovasController {
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(view,"Erro de conexão");
+        }
+        
+    }
+    
+    public void vendermoeda1(String [] moeda){
+        String txt,txt2,txt3,txt4;
+        txt = view2.getTxtvalorcompra1().getText();
+        float valorcompra = Float.parseFloat(txt);
+        
+        txt2 = view2.getTxtvalor1().getText();
+        float cotacao = Float.parseFloat(txt2);
+        
+        txt3 = view2.getTxtsaldo().getText();
+        float saldo = Float.parseFloat(txt3);
+        
+        txt4 = view2.getTxtsaldom1().getText();
+        float saldocripto = Float.parseFloat(txt4);
+        
+        Usuario usuario = new Usuario(cpflogado,valorcompra,cotacao, saldo,saldocripto);
+                        
+        Conexao conexao = new Conexao();
+        try{
+            Connection conn = conexao.getConnection();
+            UsuarioDAO dao = new UsuarioDAO(conn);
+            dao.vendermoeda1(usuario,moeda);
+             JOptionPane.showMessageDialog(view2, "Transação ocorreu com sucesso!");
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(view2,"Erro de conexão");
+        }
+        
+    }
+    public void vendermoeda2(String [] moeda){
+        String txt,txt2,txt3,txt4;
+        txt = view2.getTxtvalorcompra1().getText();
+        float valorcompra = Float.parseFloat(txt);
+        
+        txt2 = view2.getTxtvalor1().getText();
+        float cotacao = Float.parseFloat(txt2);
+        
+        txt3 = view2.getTxtsaldo().getText();
+        float saldo = Float.parseFloat(txt3);
+        
+        txt4 = view2.getTxtsaldom1().getText();
+        float saldocripto = Float.parseFloat(txt4);
+        
+        Usuario usuario = new Usuario(cpflogado,valorcompra,cotacao, saldo,saldocripto);
+                        
+        Conexao conexao = new Conexao();
+        try{
+            Connection conn = conexao.getConnection();
+            UsuarioDAO dao = new UsuarioDAO(conn);
+            dao.vendermoeda2(usuario,moeda);
+             JOptionPane.showMessageDialog(view2, "Transação ocorreu com sucesso!");
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(view2,"Erro de conexão");
+        }
+        
+    }
+    public void vendermoeda3(String [] moeda){
+        String txt,txt2,txt3,txt4;
+        txt = view2.getTxtvalorcompra1().getText();
+        float valorcompra = Float.parseFloat(txt);
+        
+        txt2 = view2.getTxtvalor1().getText();
+        float cotacao = Float.parseFloat(txt2);
+        
+        txt3 = view2.getTxtsaldo().getText();
+        float saldo = Float.parseFloat(txt3);
+        
+        txt4 = view2.getTxtsaldom1().getText();
+        float saldocripto = Float.parseFloat(txt4);
+        
+        Usuario usuario = new Usuario(cpflogado,valorcompra,cotacao, saldo,saldocripto);
+                        
+        Conexao conexao = new Conexao();
+        try{
+            Connection conn = conexao.getConnection();
+            UsuarioDAO dao = new UsuarioDAO(conn);
+            dao.vendermoeda3(usuario,moeda);
+             JOptionPane.showMessageDialog(view2, "Transação ocorreu com sucesso!");
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(view2,"Erro de conexão");
         }
         
     }

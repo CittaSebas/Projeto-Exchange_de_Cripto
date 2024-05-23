@@ -32,7 +32,20 @@ public class AtualizarController {
         return (random.nextFloat() * 0.1f) - 0.05f;
     }
     
-    
+    public String[] checkarmoedas(){
+        String[] moedas = new String[0];
+        Conexao conexao = new Conexao();
+        try{
+            Connection conn = conexao.getConnection();
+            CotDAO dao = new CotDAO(conn);
+            moedas = dao.checkarmoedas();
+            return moedas;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(view,"Erro de conexão");
+        }
+        
+        return moedas;
+    }
     // Função de Atualizar
     private void atualizarCotacao(String moeda, float novaCotacao) {
         Conexao conexao = new Conexao();

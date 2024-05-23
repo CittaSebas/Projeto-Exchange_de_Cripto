@@ -19,9 +19,7 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         return txtabreviacao;
     }
 
-    public JTextField getTxtid() {
-        return txtid;
-    }
+   
 
     public JTextField getTxtnome() {
         return txtnome;
@@ -43,9 +41,7 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         this.txtabv3 = txtabv3;
     }
 
-    public void setTxtid(JTextField txtid) {
-        this.txtid = txtid;
-    }
+    
 
     
 
@@ -82,21 +78,22 @@ public class FrameCriarCripto extends javax.swing.JFrame {
      */
     public FrameCriarCripto() {
         initComponents();
-        txtid1.setVisible(false);
-        txtid2.setVisible(false);
-        txtid3.setVisible(false);
+        
         lblm1.setVisible(false);
         lblm2.setVisible(false);
         lblm3.setVisible(false);
         txtnome1.setVisible(false);
         txtnome2.setVisible(false);
         txtnome3.setVisible(false);
+        txtnome1.setEditable(false);txtnome2.setEditable(false);txtnome3.setEditable(false);
         txtvalor1.setVisible(false);
         txtvalor2.setVisible(false);
         txtvalor3.setVisible(false);
+        txtvalor1.setEditable(false);txtvalor2.setEditable(false);txtvalor3.setEditable(false);
         txtabv1.setVisible(false);
         txtabv2.setVisible(false);
         txtabv3.setVisible(false);
+        txtabv1.setEditable(false);txtabv2.setEditable(false);txtabv3.setEditable(false);
         controller = new CriarCriptoController(this);
         String[] moedas = new String[0];
         moedas = controller.checkarmoedas();
@@ -105,7 +102,7 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         }
          if(moedas.length >= 4){
             lblm1.setVisible(true);
-            txtid1.setVisible(true);
+            
             txtnome1.setVisible(true);
             txtvalor1.setVisible(true);
             txtabv1.setVisible(true);
@@ -115,7 +112,6 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         }
          if(moedas.length>=8){
             lblm2.setVisible(true);
-            txtid2.setVisible(true);
             txtnome2.setVisible(true);
             txtvalor2.setVisible(true);
             txtabv2.setVisible(true);
@@ -125,7 +121,6 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         }
          if(moedas.length>=12){
             lblm1.setVisible(true);
-            txtid3.setVisible(true);
             txtnome3.setVisible(true);
             txtvalor3.setVisible(true);
             txtabv3.setVisible(true);
@@ -146,16 +141,11 @@ public class FrameCriarCripto extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtid = new javax.swing.JTextField();
         txtnome = new javax.swing.JTextField();
         btncriar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         txtvalor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtabreviacao = new javax.swing.JTextField();
-        txtid1 = new javax.swing.JTextField();
-        txtid2 = new javax.swing.JTextField();
-        txtid3 = new javax.swing.JTextField();
         txtnome1 = new javax.swing.JTextField();
         txtnome2 = new javax.swing.JTextField();
         txtnome3 = new javax.swing.JTextField();
@@ -168,6 +158,7 @@ public class FrameCriarCripto extends javax.swing.JFrame {
         lblm1 = new javax.swing.JLabel();
         lblm2 = new javax.swing.JLabel();
         lblm3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -184,30 +175,7 @@ public class FrameCriarCripto extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("ID da Moeda:");
-
         jLabel5.setText("Abreviacao da Moeda");
-
-        txtid1.setText("1");
-        txtid1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtid1ActionPerformed(evt);
-            }
-        });
-
-        txtid2.setText("2");
-        txtid2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtid2ActionPerformed(evt);
-            }
-        });
-
-        txtid3.setText("3");
-        txtid3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtid3ActionPerformed(evt);
-            }
-        });
 
         txtnome1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +237,8 @@ public class FrameCriarCripto extends javax.swing.JFrame {
 
         lblm3.setText("Moeda 3");
 
+        jLabel1.setText("Limite de Criação: 3 Criptomoedas");
+
         jMenu1.setText("Menu");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,34 +260,33 @@ public class FrameCriarCripto extends javax.swing.JFrame {
                         .addComponent(btncriar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtabreviacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtabreviacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1))
+                        .addGap(92, 92, 92)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblm1)
                                 .addGap(9, 9, 9))
-                            .addComponent(txtid1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                            .addComponent(txtnome1)
+                            .addComponent(txtnome1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                             .addComponent(txtvalor1)
                             .addComponent(txtabv1))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtid2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                                    .addComponent(txtnome2)
+                                    .addComponent(txtnome2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                                     .addComponent(txtvalor2)
                                     .addComponent(txtabv2))
                                 .addGap(29, 29, 29))
@@ -331,9 +300,8 @@ public class FrameCriarCripto extends javax.swing.JFrame {
                                 .addComponent(lblm3))
                             .addComponent(txtabv3, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                             .addComponent(txtvalor3)
-                            .addComponent(txtnome3)
-                            .addComponent(txtid3))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(txtnome3))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,16 +310,9 @@ public class FrameCriarCripto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblm1)
                     .addComponent(lblm2)
-                    .addComponent(lblm3))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtid1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtid2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtid3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lblm3)
+                    .addComponent(jLabel1))
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -381,21 +342,13 @@ public class FrameCriarCripto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btncriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncriarActionPerformed
-        // TODO add your handling code here:
+       
         controller.adicionarmoeda();
+        FrameMenu fm = new FrameMenu();
+        fm.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_btncriarActionPerformed
-
-    private void txtid1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtid1ActionPerformed
-
-    private void txtid2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtid2ActionPerformed
-
-    private void txtid3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtid3ActionPerformed
 
     private void txtnome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnome1ActionPerformed
         // TODO add your handling code here:
@@ -481,9 +434,9 @@ public class FrameCriarCripto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncriar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -494,10 +447,6 @@ public class FrameCriarCripto extends javax.swing.JFrame {
     private javax.swing.JTextField txtabv1;
     private javax.swing.JTextField txtabv2;
     private javax.swing.JTextField txtabv3;
-    private javax.swing.JTextField txtid;
-    private javax.swing.JTextField txtid1;
-    private javax.swing.JTextField txtid2;
-    private javax.swing.JTextField txtid3;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtnome1;
     private javax.swing.JTextField txtnome2;

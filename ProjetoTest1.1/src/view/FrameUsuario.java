@@ -187,7 +187,7 @@ public class FrameUsuario extends javax.swing.JFrame {
 
     private void btnatualizarcotacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizarcotacaoActionPerformed
 
-        FrameAtualizar fa = new FrameAtualizar();
+        FrameAtualizar fa = new FrameAtualizar(cpflogado);
         fa.setVisible(true);
         dispose();
         

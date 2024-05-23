@@ -17,14 +17,51 @@ import javax.swing.JTextField;
 public class FrameAtualizar extends javax.swing.JFrame {
 
     private AtualizarController controller;
+    private String cpflogado;
 
-    public FrameAtualizar() {
+    public FrameAtualizar(String cpflogado) {
         initComponents();
+        this.cpflogado = cpflogado;
         controller = new AtualizarController();
         txtcotbtc.setEditable(false);
         txtcoteth.setEditable(false);
         txtcotxrp.setEditable(false);
+        txtcotmc1.setEditable(false);
+        txtcotmc2.setEditable(false);
+        txtcotmc3.setEditable(false);
+        txtcotmc1.setVisible(false);
+        txtcotmc2.setVisible(false);
+        txtcotmc3.setVisible(false);
+        lblm1.setVisible(false);
+        lblm2.setVisible(false);
+        lblm3.setVisible(false);
+        
+        
         updateCotacoes();
+        
+        String[] moedas;
+        
+        moedas = controller.checkarmoedas();
+        
+        if(moedas.length >= 4){
+            lblm1.setVisible(true);
+            txtcotmc1.setVisible(true);
+            lblm1.setText(moedas[1]);
+            txtcotmc1.setText(moedas[2]);
+        }
+         if(moedas.length>=8){
+            lblm2.setVisible(true);
+            txtcotmc2.setVisible(true);
+            lblm2.setText(moedas[5]);
+            txtcotmc2.setText(moedas[6]);
+            
+        }
+         if(moedas.length>=12){
+            lblm3.setVisible(true);
+            txtcotmc3.setVisible(true);
+            lblm3.setText(moedas[9]);
+            txtcotmc3.setText(moedas[10]);
+        }
     }
 
     private void updateCotacoes() {
@@ -102,10 +139,13 @@ public class FrameAtualizar extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblm2 = new javax.swing.JLabel();
+        lblm3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        lblm1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -124,15 +164,25 @@ public class FrameAtualizar extends javax.swing.JFrame {
 
         jLabel3.setText("Ripple");
 
-        jLabel4.setText("Moeda config1");
+        lblm2.setText("Moeda config2");
 
-        jLabel5.setText("Moeda config2");
-
-        jLabel6.setText("Moeda config3");
+        lblm3.setText("Moeda config3");
 
         jLabel7.setText("Ethereum");
 
-        jLabel8.setText("Novo Valor");
+        jLabel8.setText("Valor");
+
+        lblm1.setText("Moeda config1");
+
+        jMenu1.setText("Menu");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,38 +193,44 @@ public class FrameAtualizar extends javax.swing.JFrame {
                 .addComponent(btnatualizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                    .addComponent(lblm2)
+                    .addComponent(lblm3)
+                    .addComponent(jLabel7)
+                    .addComponent(lblm1))
+                .addGap(44, 44, 44)
+                .addComponent(jLabel2)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtcotmc1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(txtcotxrp)
+                            .addComponent(txtcoteth)
+                            .addComponent(txtcotbtc))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtcotmc3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcotmc2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcotmc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcotxrp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcoteth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcotbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtcotmc2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(txtcotmc3))
                         .addGap(66, 66, 66))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(btnatualizar)
-                .addGap(8, 8, 8)
+                .addGap(2, 2, 2)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotbtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -190,16 +246,17 @@ public class FrameAtualizar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotmc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(lblm1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotmc2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(lblm2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcotmc3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(lblm3))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,6 +270,14 @@ public class FrameAtualizar extends javax.swing.JFrame {
    
         
     }//GEN-LAST:event_btnatualizarActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+       
+        FrameUsuario fu = new FrameUsuario(cpflogado);
+        fu.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -257,12 +322,15 @@ public class FrameAtualizar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblm1;
+    private javax.swing.JLabel lblm2;
+    private javax.swing.JLabel lblm3;
     private javax.swing.JTextField txtcotbtc;
     private javax.swing.JTextField txtcoteth;
     private javax.swing.JTextField txtcotmc1;

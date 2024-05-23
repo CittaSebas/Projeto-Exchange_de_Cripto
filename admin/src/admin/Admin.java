@@ -4,7 +4,7 @@
  */
 package admin;
 
-import view.FrameLogin;
+import view.FrameIntro;
 
 /**
  *
@@ -15,8 +15,8 @@ public class Admin {
    
     
     public static void main(String[] args) {
-        FrameLogin fl = new FrameLogin();
-        fl.setVisible(true);
+        FrameIntro fi = new FrameIntro();
+        fi.setVisible(true);
     }
     
 }

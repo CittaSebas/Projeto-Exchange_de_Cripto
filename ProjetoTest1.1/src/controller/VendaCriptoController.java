@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import view.FrameVendaCripto;
+import view.FrameVenderNovas;
 
 /**
  *
@@ -27,6 +28,10 @@ public class VendaCriptoController {
         this.view = view;
         this.cpflogado = cpflogado;
     }
+
+    
+    
+    
     
     public ResultSet consultarsc() {
         Conexao conexao = new Conexao();

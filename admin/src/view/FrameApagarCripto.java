@@ -4,19 +4,57 @@
  */
 package view;
 
+import controller.ApagarCriptoController;
+
 /**
  *
  * @author Sebastian
  */
 public class FrameApagarCripto extends javax.swing.JFrame {
 
+    private ApagarCriptoController controller;
     /**
      * Creates new form apagacripto
      */
     public FrameApagarCripto() {
         initComponents();
+        
+        controller = new ApagarCriptoController(this);
+        
+        String[] moedas;
+        moedas = controller.checkarmoedas();
+        txtmoeda1.setEditable(false);txtmoeda2.setEditable(false);txtmoeda3.setEditable(false);
+        txtmoeda1.setVisible(false);
+        txtmoeda2.setVisible(false);
+        txtmoeda3.setVisible(false);
+        btnapagar1.setVisible(false);
+        btnapagar2.setVisible(false);
+        btnapagar3.setVisible(false);
+
+        
+        if(moedas.length == 0){
+            System.out.println("List vazia");
+        }
+         if(moedas.length >= 4){
+            txtmoeda1.setVisible(true);
+            txtmoeda1.setText(moedas[1]);
+            btnapagar1.setVisible(true);
+        }
+         if(moedas.length>=8){
+            txtmoeda2.setVisible(true);
+            txtmoeda2.setText(moedas[5]);
+            btnapagar2.setVisible(true);
+        }
+         if(moedas.length>=12){
+            txtmoeda3.setVisible(true);
+            txtmoeda3.setText(moedas[9]);
+            btnapagar3.setVisible(true);
+        }
     }
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,9 +65,12 @@ public class FrameApagarCripto extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtmoeda1 = new javax.swing.JTextField();
+        btnapagar1 = new javax.swing.JButton();
+        btnapagar2 = new javax.swing.JButton();
+        txtmoeda2 = new javax.swing.JTextField();
+        btnapagar3 = new javax.swing.JButton();
+        txtmoeda3 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -37,9 +78,26 @@ public class FrameApagarCripto extends javax.swing.JFrame {
 
         jLabel1.setText("Apagar Criptomoeda");
 
-        jLabel2.setText("Nome da Criptomoeda: ");
+        btnapagar1.setText("Apagar");
+        btnapagar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnapagar1ActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Apagar");
+        btnapagar2.setText("Apagar");
+        btnapagar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnapagar2ActionPerformed(evt);
+            }
+        });
+
+        btnapagar3.setText("Apagar");
+        btnapagar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnapagar3ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menu");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -58,30 +116,43 @@ public class FrameApagarCripto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel2)
+                        .addGap(158, 158, 158)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtmoeda1)
+                            .addComponent(btnapagar1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel1)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtmoeda2)
+                            .addComponent(btnapagar2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtmoeda3)
+                            .addComponent(btnapagar3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtmoeda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnapagar1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtmoeda2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnapagar2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtmoeda3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnapagar3)))
+                .addGap(118, 118, 118))
         );
 
         pack();
@@ -94,6 +165,33 @@ public class FrameApagarCripto extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void btnapagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapagar1ActionPerformed
+       
+        controller.apagarmoeda1();
+        FrameMenu fm = new FrameMenu();
+        fm.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_btnapagar1ActionPerformed
+
+    private void btnapagar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapagar2ActionPerformed
+        
+        controller.apagarmoeda2();
+        FrameMenu fm = new FrameMenu();
+        fm.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_btnapagar2ActionPerformed
+
+    private void btnapagar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapagar3ActionPerformed
+        
+        controller.apagarmoeda3();
+        FrameMenu fm = new FrameMenu();
+        fm.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_btnapagar3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,11 +230,14 @@ public class FrameApagarCripto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnapagar1;
+    private javax.swing.JButton btnapagar2;
+    private javax.swing.JButton btnapagar3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtmoeda1;
+    private javax.swing.JTextField txtmoeda2;
+    private javax.swing.JTextField txtmoeda3;
     // End of variables declaration//GEN-END:variables
 }

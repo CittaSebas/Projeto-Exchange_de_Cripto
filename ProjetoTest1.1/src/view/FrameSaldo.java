@@ -5,8 +5,10 @@
 package view;
 
 import controller.SaldoController;
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -61,6 +63,32 @@ public class FrameSaldo extends javax.swing.JFrame {
             saldoString.append("Nome: " +nome + "\n" ).append("CPF: " + cpf + "\n \n")
                     .append("Reais: "+saldo + " \n").append("Bitcoin: "+ saldobtc + "\n")
                     .append("Ethereum: "+saldoeth+"\n").append("Ripple: "+saldoxrp + "\n");
+            
+            Array moedas = res.getArray("criptos");
+
+            Object[] moedasArray = (Object[]) moedas.getArray();
+
+            String[] Stringarray = Arrays.copyOf(moedasArray, moedasArray.length, String[].class);
+            
+            if(Stringarray.length >=4){
+                String saldom1 = Stringarray[2];
+                String abv1 = Stringarray[3];
+                saldoString.append(abv1 + ": "+ saldom1 + "\n");
+                
+            }
+            if(Stringarray.length >=8){
+                String saldom2 = Stringarray[6];
+                String abv2 = Stringarray[7];
+                saldoString.append(abv2 + ": "+saldom2 + "\n");
+            }
+            if(Stringarray.length >=12){
+                String saldom3 = Stringarray[10];
+                String abv3 = Stringarray[11];
+                saldoString.append(abv3 + " "+ saldom3 + "\n");
+            }
+
+            
+            
             
             txtareasaldo.append(saldoString.toString());
             
@@ -131,24 +159,22 @@ public class FrameSaldo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 71, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(169, 169, 169))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblframe, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(194, 194, 194))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(106, 106, 106))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(lblframe, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(jButton1)))
+                .addContainerGap(267, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,10 +183,10 @@ public class FrameSaldo extends javax.swing.JFrame {
                 .addComponent(lblframe)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
 
@@ -174,10 +200,11 @@ public class FrameSaldo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
-        // TODO add your handling code here:
+
         FrameUsuario fu = new FrameUsuario(cpflogado);
         fu.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_jMenu1MenuSelected
 
     /**

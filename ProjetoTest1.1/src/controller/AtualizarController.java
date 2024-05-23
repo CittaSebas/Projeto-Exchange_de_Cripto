@@ -136,9 +136,20 @@ public class AtualizarController {
 
         JOptionPane.showMessageDialog(view, "Cotações atualizadas com sucesso");
     }
+    
+    public String[] checkarmoedas(){
+        String[] moedas = new String[0];
+        Conexao conexao = new Conexao();
+        try{
+            Connection conn = conexao.getConnection();
+            CotDAO dao = new CotDAO(conn);
+            moedas = dao.checkarmoedas();
+            return moedas;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(view,"Erro de conexão");
+        }
+        
+        return moedas;
+    }
+    
 }
-    
-    
-
-
-

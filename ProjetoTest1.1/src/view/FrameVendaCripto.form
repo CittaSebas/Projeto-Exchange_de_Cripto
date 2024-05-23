@@ -38,106 +38,87 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btncxrp" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="btnceth" min="-2" max="-2" attributes="0"/>
-                      <Component id="btncbtc" min="-2" pref="78" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txteth" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-                  <Component id="txtbtc" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                  <Component id="txtxrp" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="txtcotripple" alignment="1" min="-2" pref="137" max="-2" attributes="0"/>
-                          <Component id="txtcoteth" min="-2" pref="137" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="txtvendaeth" min="-2" pref="97" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtvendaxrp" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="76" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="totalxrp" min="-2" pref="54" max="-2" attributes="0"/>
-                          <Component id="totalbtc" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="txtcotbtc" min="-2" pref="137" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtvendabtc" min="-2" pref="86" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
+              <Component id="txtsaldo" min="-2" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="txtsaldo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btncbtc" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="btnceth" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btncxrp" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txteth" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtxrp" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtbtc" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="txtcotripple" alignment="1" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="txtcoteth" min="-2" pref="137" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtcotbtc" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtvendaeth" max="32767" attributes="0"/>
+                          <Component id="txtvendaxrp" max="32767" attributes="0"/>
+                          <Component id="txtvendabtc" min="-2" pref="97" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="totaleth" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
+                      <Component id="btnotras" min="-2" pref="158" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="0" pref="94" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtsaldo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtbtc" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtcotbtc" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btncbtc" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtvendabtc" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtsaldo" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="33" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="txtbtc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtvendabtc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtcotbtc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="btncbtc" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnceth" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txteth" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtcoteth" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtvendaeth" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnceth" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="totaleth" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btncxrp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtcotripple" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtxrp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtvendaxrp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="totalxrp" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="totalbtc" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtcotripple" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtxrp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtvendaxrp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btncxrp" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="btnotras" min="-2" pref="48" max="-2" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -158,13 +139,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtxrpActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="totalbtc">
-    </Component>
-    <Component class="javax.swing.JTextField" name="totaleth">
-    </Component>
-    <Component class="javax.swing.JTextField" name="totalxrp">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtcotbtc">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtcotbtcActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtcoteth">
     </Component>
@@ -193,8 +171,24 @@
     <Component class="javax.swing.JTextField" name="txtvendaxrp">
     </Component>
     <Component class="javax.swing.JTextField" name="txtvendaeth">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtvendaethActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtsaldo">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnotras">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Outras Criptomoedas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnotrasActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Venda de Criptos"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

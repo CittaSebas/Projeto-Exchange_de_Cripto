@@ -26,8 +26,8 @@ public class CriarCriptoController {
     }
     
     public void adicionarmoeda(){
-        String id = view.getTxtid().getText();
         
+        String id="0";
         String nome = view.getTxtnome().getText();
         
         String abrv = view.getTxtabreviacao().getText();
@@ -42,7 +42,7 @@ public class CriarCriptoController {
             dao.adicionarmoeda(moeda);
             dao.updateCriptos(moeda);
             
-             JOptionPane.showMessageDialog(view, "Transação ocorreu com sucesso!");
+             JOptionPane.showMessageDialog(view, "Criado com sucesso!");
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(view,"Erro de conexão");

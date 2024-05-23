@@ -16,6 +16,7 @@ import model.Cotacao;
  *
  * @author citta
  */
+
 public class CotDAO {
     
     private Connection conn;
@@ -32,9 +33,10 @@ public class CotDAO {
         return resultado;
     } catch (SQLException e) {
         e.printStackTrace();
-        return null; // or handle the error in a different way
+        return null;
         }
     }
+    
     public void atualizar(String moeda, float novaCotacao) throws SQLException {
         System.out.println(moeda);
         String sql = "UPDATE cotacao SET " + moeda + " = ? WHERE id = (SELECT MAX(id) FROM cotacao)";
@@ -57,27 +59,18 @@ public class CotDAO {
             String[] str_critpos = (String[]) criptos.getArray(); // Convertendo para array de String
 
             if (str_critpos.length == 4) {
-                System.out.println("Array with 4 elements: " + Arrays.toString(str_critpos));
                 return str_critpos; // Retorna o array diretamente se tiver 4 elementos
             } else if (str_critpos.length == 8) {
                 String[] combinedArray = new String[8];
                 System.arraycopy(str_critpos, 0, combinedArray, 0, 8); // Copia todos os 8 elementos
-                System.out.println("Array with 8 elements: " + Arrays.toString(combinedArray));
                 return combinedArray;
             }
             else if (str_critpos.length == 12) {
                 String[] combinedArray = new String[12];
                 System.arraycopy(str_critpos, 0, combinedArray, 0, 11); // Copia todos os 8 elementos
-                System.out.println("Array with 12 elements: " + Arrays.toString(combinedArray));
                 return combinedArray;
-            }
-        
-    return moeda;}return moeda;
+                }return moeda;
+            }return moeda;
         }
     }
-
-    
-
-    
-    
 }

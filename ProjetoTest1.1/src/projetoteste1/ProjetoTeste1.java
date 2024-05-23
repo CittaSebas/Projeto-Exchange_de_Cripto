@@ -4,7 +4,9 @@
  */
 package projetoteste1;
 
-import view.FrameLogin;
+import view.FrameIntro;
+
+
 
 /**
  *
@@ -20,7 +22,7 @@ public class ProjetoTeste1 {
     public static void main(String[] args) {
         
         // TODO code application logic here
-        FrameLogin fl = new FrameLogin();
+        FrameIntro fl = new FrameIntro();
         fl.setVisible(true);
     }
     
